@@ -1,0 +1,184 @@
+// server.js (CommonJS)
+const express = require("express");
+const cors = require("cors");
+
+const app = express();
+const PORT = process.env.PORT || 8000;
+
+app.use(cors());
+app.use(express.json());
+
+// ----------------------
+// Valid Tokens
+// ----------------------
+const validTokens = new Set([
+  "token_fb_abc123",
+  "token_fb_demo",
+  "token_ig_abc123",
+  "token_ig_demo"
+]);
+
+// ----------------------
+// Dummy Users
+// ----------------------
+const fbBaseId = "122094043977116573";
+const igBaseId = "133094043977116573";
+const fbNames = [
+  { firstName: "Manoj", lastName: "Shakya", age: 25, dob: "05/07/1999", user_location: "Kanpur, India" },
+  { firstName: "Himanshu", lastName: "Yadav", age: 26, dob: "12/03/1998", user_location: "Noida, India" },
+  { firstName: "Jyoti", lastName: "Shakya", age: 24, dob: "11/08/1999", user_location: "Lucknow, India" },
+  { firstName: "Anshu", lastName: "Patel", age: 27, dob: "05/06/1997", user_location: "Ahmedabad, India" },
+  { firstName: "Mohit", lastName: "Kumar", age: 25, dob: "23/09/1999", user_location: "Bangalore, India" },
+  { firstName: "Rohit", lastName: "Verma", age: 28, dob: "15/02/1996", user_location: "Pune, India" },
+  { firstName: "Neha", lastName: "Kumar", age: 23, dob: "30/01/2000", user_location: "Chennai, India" },
+  { firstName: "Sara", lastName: "Ali", age: 22, dob: "12/12/2001", user_location: "Hyderabad, India" },
+  { firstName: "Aman", lastName: "Gupta", age: 29, dob: "09/11/1995", user_location: "Kolkata, India" },
+  { firstName: "Pooja", lastName: "Sharma", age: 26, dob: "17/07/1997", user_location: "Mumbai, India" },
+  
+  { firstName: "Imtiyaz", lastName: "Ansari", age: 29, dob: "28/04/1995", user_location: "Patna, India" },
+  { firstName: "Maryam", lastName: "Khan", age: 24, dob: "07/07/2000", user_location: "Ranchi, India" },
+  { 
+    firstName: "Maryam", 
+    lastName: "Khan", 
+    age: 24, 
+    dob: "07/07/2000", 
+    user_location: "Ranchi, India" 
+  },
+  {
+    firstName: "Kareena",
+    lastName: "Tekwani",
+    age: 25,
+    dob: "12/08/1999",
+    user_location: "Mumbai, India"
+  }
+    
+];
+
+// ----------------------
+// Generate FB Users
+// ----------------------
+const fbUsers = {};
+fbNames.forEach((user, i) => {
+  const id = (BigInt(fbBaseId) + BigInt(i)).toString();
+  fbUsers[id] = { ...user, id, friends: [] };
+});
+
+// Assign cyclic friends
+const fbIds = Object.keys(fbUsers);
+fbIds.forEach((id, i) => {
+  fbUsers[id].friends = fbIds
+    .slice(i + 1, i + 361)
+    .map(fid => ({ id: fid, firstName: fbUsers[fid].firstName, lastName: fbUsers[fid].lastName }));
+});
+
+// ----------------------
+// Generate IG Users
+// ----------------------
+const igUsers = {};
+fbNames.forEach((user, i) => {
+  const id = (BigInt(igBaseId) + BigInt(i)).toString();
+  igUsers[id] = { ...user, id, followers: [] };
+});
+
+// Assign cyclic followers safely
+const igIds = Object.keys(igUsers);
+igIds.forEach((id, i) => {
+  igUsers[id].followers = igIds
+    .slice(i + 1, i + 361) // small slice for safety
+    .map(fid => ({
+      id: fid,
+      username: igUsers[fid].firstName.toLowerCase() + "_" + igUsers[fid].lastName.toLowerCase()
+    }));
+});
+
+// ----------------------
+// Helper: validate token
+// ----------------------
+function checkToken(req) {
+  const token = req.query.token || req.headers["x-access-token"];
+  if (!token) return { ok: false, code: 401, msg: "Token missing" };
+  if (!validTokens.has(token)) return { ok: false, code: 403, msg: "Invalid token" };
+  return { ok: true, token };
+}
+
+// ----------------------
+// Health Check
+// ----------------------
+app.get("/", (req, res) => {
+  res.json({ ok: true, message: "Mock Social Server Running..." });
+});
+
+// ----------------------
+// FACEBOOK API
+// ----------------------
+app.get("/fb/:id", (req, res) => {
+  const { id } = req.params;
+  const check = checkToken(req);
+  if (!check.ok) return res.status(check.code).json({ error: check.msg });
+
+  const user = fbUsers[id];
+  if (!user) return res.status(404).json({ error: "Facebook user not found" });
+
+  res.json({
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    age: user.age,
+    dob: user.dob || null,
+    user_location: user.user_location,
+    friends: user.friends,
+    totalFriends: user.friends.length
+  });
+});
+
+// ----------------------
+// INSTAGRAM API
+// ----------------------
+app.get("/ig/:id", (req, res) => {
+  const { id } = req.params;
+  const check = checkToken(req);
+  if (!check.ok) return res.status(check.code).json({ error: check.msg });
+
+  const user = igUsers[id];
+  if (!user) return res.status(404).json({ error: "Instagram user not found" });
+
+  const followersWithNested = user.followers.map(f => {
+    const followerUser = igUsers[f.id];
+    return {
+      id: f.id,
+      username: f.username,
+      totalFollowers: followerUser ? followerUser.followers.length : 0,
+      followers: followerUser ? followerUser.followers.slice(0, 50) : [] // small limit
+    };
+  });
+
+  res.json({
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    user_location: user.user_location,
+    totalFollowers: user.followers.length,
+    followers: followersWithNested
+  });
+});
+
+// ----------------------
+// Tokens endpoints
+// ----------------------
+app.get("/__tokens", (req, res) => {
+  res.json({ validTokens: Array.from(validTokens) });
+});
+
+app.post("/add-token", (req, res) => {
+  const body = req.body;
+  if (!body || !body.token) return res.status(400).json({ error: "Provide token in body" });
+  validTokens.add(body.token.trim());
+  res.json({ success: true, tokens: Array.from(validTokens) });
+});
+
+// ----------------------
+// Start server
+// ----------------------
+app.listen(PORT, () => {
+  console.log(`🚀 Mock Social Server running at http://localhost:${PORT}`);
+});
