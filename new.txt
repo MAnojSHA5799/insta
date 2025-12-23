@@ -182,3 +182,43 @@ app.post("/add-token", (req, res) => {
 app.listen(PORT, () => {
   console.log(`🚀 Mock Social Server running at http://localhost:${PORT}`);
 });
+
+
+
+
+
+// State and city waise
+// search time (din me kitne bar)
+// city wise like all cities ()
+// Key words for brand-wise 
+
+Today
+// Key words for brand-wise 
+// kon si website pr jada seacrh and purchase (amazon , filpkart, personal website, Nikka, Zepto, blinkit, Mytra, messo, instamart)
+// price range traffic (kis city se)
+
+// best lip-bam for winnter
+// // best hair scrum 
+
+Youtube
+
+top 15 city demand me bhi kon si city me demand jada hai and time wise 
+
+
+
+
+
+1. Face serum kon sa demand me hai
+2. lip-bam
+3. moisturizer
+4. underarm roll on
+5. # tag
+6. hookups
+7. category wise kon sa video trend me hai
+8. category wise kon sa hookups and hashtag trend me hai
+9. kon sa music category wise trend me hai 
+10. kinte time ka video sabse jada attention kr rha hai
+11. Kitne der kon video ko dekhta hai
+12. kis tarha k video pr sabse jada like and views aa rha hai
+13. kon kon sa algorithm hai category wise
+(key words and demand)

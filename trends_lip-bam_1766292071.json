@@ -1,0 +1,524 @@
+{
+  "timestamp": "2025-12-21 10:11:10 IST",
+  "query": "lip-bam",
+  "region": "IN",
+  "stats": {
+    "videos_analyzed": 15,
+    "total_views": 713892314,
+    "total_engagement": 11471272
+  },
+  "trends": {
+    "tags": {
+      "ipsy": 1,
+      "glam bag": 1,
+      "ipsyos": 1,
+      "beauty": 1,
+      "makeup": 2,
+      "cosmetics": 1,
+      "diy": 1,
+      "tutorial": 1,
+      "how to": 1,
+      "tips": 1,
+      "makeover": 1,
+      "skin": 1,
+      "skin care": 1,
+      "products": 1,
+      "hair": 1,
+      "lip": 1,
+      "nails": 1,
+      "eyes": 1,
+      "mac cosmetics": 1,
+      "purple lipstick": 1,
+      "lipstick": 1,
+      "purple lips": 1,
+      "lips": 1,
+      "lip liner": 1,
+      "mac": 1,
+      "mac lipstick": 1,
+      "gloss balm": 1,
+      "gloss": 1,
+      "gloss stick": 1,
+      "#shorts": 2,
+      "#asmr": 2,
+      "#oddlysatisfying": 2,
+      "satisfying videos": 2,
+      "#mini": 1,
+      "packing mini suitcase": 1,
+      "#lipbalm": 2,
+      "#asmrmakeup": 2,
+      "#minithings": 1,
+      "#cutethings": 1
+    },
+    "hooks": {
+      "lipgloss keycha": 1,
+      "rainbow lip bal": 1,
+      "proper lip prep": 1,
+      "purple  mac lip": 1,
+      "packing mini su": 1,
+      "home made rose ": 1,
+      "every lip balm ": 1,
+      "there’s been so": 1,
+      "doritos cool ra": 1,
+      "our mello jello": 1,
+      "sneaky lip balm": 1,
+      "💄creative lip g": 1,
+      "@sheglam_offici": 1,
+      "i made diy lipb": 1,
+      "lipbalm aloe ve": 1
+    },
+    "category_stats": {
+      "People": 11,
+      "Howto": 2,
+      "Pets": 1,
+      "Film": 1
+    },
+    "duration_stats": {
+      "Under 5min": 15
+    },
+    "top_performers": {
+      "highest_views": {
+        "title": "Rainbow lip balm collection color switch!💄 #lipbalm #makeup #lipgloss",
+        "tags": [],
+        "category": "People",
+        "duration": 10,
+        "views": 126441043,
+        "likes": 828280,
+        "comments": 1531,
+        "engagement": 829811
+      },
+      "highest_engagement": {
+        "title": "Purple  Mac Lipstick Balm",
+        "tags": [
+          "mac cosmetics",
+          "purple lipstick",
+          "lipstick",
+          "purple lips",
+          "lips",
+          "lip liner",
+          "mac",
+          "mac lipstick",
+          "gloss balm",
+          "gloss",
+          "gloss stick",
+          "makeup"
+        ],
+        "category": "People",
+        "duration": 44,
+        "views": 64612411,
+        "likes": 2616164,
+        "comments": 4376,
+        "engagement": 2620540
+      }
+    },
+    "avg_engagement": 62.4091097125321
+  },
+  "hashtags": {
+    "all": {
+      "lip": 2,
+      "lipstain": 1,
+      "reallittles": 1,
+      "carebears": 1,
+      "lipbalm": 4,
+      "makeup": 5,
+      "lipgloss": 1,
+      "lipstickhacks": 1,
+      "skincaretips": 1,
+      "ipsy": 2,
+      "glam bag": 1,
+      "ipsyos": 1,
+      "beauty": 1,
+      "cosmetics": 1,
+      "diy": 1,
+      "tutorial": 1,
+      "how to": 1,
+      "tips": 1,
+      "makeover": 1,
+      "skin": 1,
+      "skin care": 1,
+      "products": 1,
+      "hair": 1,
+      "nails": 1,
+      "eyes": 1,
+      "mac cosmetics": 1,
+      "purple lipstick": 1,
+      "lipstick": 2,
+      "purple lips": 1,
+      "lips": 1,
+      "lip liner": 1,
+      "mac": 1,
+      "mac lipstick": 1,
+      "gloss balm": 1,
+      "gloss": 1,
+      "gloss stick": 1,
+      "shorts": 5,
+      "#shorts": 2,
+      "#asmr": 2,
+      "#oddlysatisfying": 2,
+      "satisfying videos": 2,
+      "#mini": 1,
+      "packing mini suitcase": 1,
+      "#lipbalm": 2,
+      "#asmrmakeup": 2,
+      "#minithings": 1,
+      "#cutethings": 1,
+      "lipbalmin": 1,
+      "spf": 1,
+      "asmr": 2,
+      "shortsfeed": 1,
+      "shortsviral": 1,
+      "short": 1,
+      "youtubeshorts": 2,
+      "asmrvideo": 1,
+      "asmrmakeup": 1,
+      "asmrsounds": 1,
+      "shortvideo": 1
+    },
+    "top_engagement": {
+      "lip": 2053063,
+      "lipstain": 1443939,
+      "reallittles": 1443939,
+      "carebears": 1443939,
+      "lipbalm": 1954419,
+      "makeup": 4727615,
+      "lipgloss": 829811,
+      "lipstickhacks": 609124,
+      "skincaretips": 609124,
+      "ipsy": 1218248,
+      "glam bag": 609124,
+      "ipsyos": 609124,
+      "beauty": 609124,
+      "cosmetics": 609124,
+      "diy": 609124,
+      "tutorial": 609124,
+      "how to": 609124,
+      "tips": 609124,
+      "makeover": 609124,
+      "skin": 609124,
+      "skin care": 609124,
+      "products": 609124,
+      "hair": 609124,
+      "nails": 609124,
+      "eyes": 609124,
+      "mac cosmetics": 2620540,
+      "purple lipstick": 2620540,
+      "lipstick": 2788142,
+      "purple lips": 2620540,
+      "lips": 2620540,
+      "lip liner": 2620540,
+      "mac": 2620540,
+      "mac lipstick": 2620540,
+      "gloss balm": 2620540,
+      "gloss": 2620540,
+      "gloss stick": 2620540,
+      "shorts": 2299015,
+      "#shorts": 1530185,
+      "#asmr": 1530185,
+      "#oddlysatisfying": 1530185,
+      "satisfying videos": 1530185,
+      "#mini": 1035632,
+      "packing mini suitcase": 1035632,
+      "#lipbalm": 1530185,
+      "#asmrmakeup": 1530185,
+      "#minithings": 1035632,
+      "#cutethings": 1035632,
+      "lipbalmin": 1317249,
+      "spf": 656170,
+      "asmr": 861857,
+      "shortsfeed": 167602,
+      "shortsviral": 167602,
+      "short": 167602,
+      "youtubeshorts": 517652,
+      "asmrvideo": 367304,
+      "asmrmakeup": 367304,
+      "asmrsounds": 367304,
+      "shortvideo": 251178
+    }
+  },
+  "hooks_by_type": {
+    "color_switch": {
+      "rainbow lip balm col": 1
+    },
+    "diy_secret": {
+      "proper lip prep! #li": 1,
+      "i made diy lipbalm a": 1
+    },
+    "number_shock": {},
+    "question": {},
+    "brand_name": {
+      "purple  mac lipstick": 1,
+      "@sheglam_official po": 1
+    }
+  },
+  "trend_guide": {
+    "top_hashtags": [
+      [
+        "makeup",
+        4727615
+      ],
+      [
+        "lipstick",
+        2788142
+      ],
+      [
+        "mac cosmetics",
+        2620540
+      ],
+      [
+        "purple lipstick",
+        2620540
+      ],
+      [
+        "purple lips",
+        2620540
+      ],
+      [
+        "lips",
+        2620540
+      ],
+      [
+        "lip liner",
+        2620540
+      ],
+      [
+        "mac",
+        2620540
+      ],
+      [
+        "mac lipstick",
+        2620540
+      ],
+      [
+        "gloss balm",
+        2620540
+      ]
+    ],
+    "hook_strategies": {
+      "color_switch": "rainbow lip balm col",
+      "diy_secret": "proper lip prep! #li",
+      "brand_name": "purple  mac lipstick"
+    },
+    "title_templates": [
+      "✅ GOOD: 'Rainbow Lip Balm Col lip-bam! #makeup #lipstick #mac cosmetics'",
+      "✅ BETTER: 'How to lip-bam in 30 Sec! #tutorial #shorts #makeup'",
+      "✅ VIRAL: 'Rainbow lip-bam Tutorial! ✨ #tutorial #makeup #makeup'"
+    ],
+    "tutorial_templates": [
+      "Lip-Bam Tutorial! #tutorial",
+      "How to Lip-Bam in 30 Sec! #howto"
+    ],
+    "viral_formula": {
+      "category": "People",
+      "length": "Under 5min",
+      "hashtags": [
+        "makeup",
+        "lipstick",
+        "mac cosmetics",
+        "purple lipstick"
+      ],
+      "hook": "rainbow lip balm col",
+      "engagement_ratio": 62.4091097125321
+    }
+  },
+  "raw_videos": [
+    {
+      "title": "Lipgloss keychain ice cream lip balm never lose your lippie #lip #lipstain #reallittles #carebears",
+      "tags": [],
+      "category": "People",
+      "duration": 18,
+      "views": 115031522,
+      "likes": 1443939,
+      "comments": 0,
+      "engagement": 1443939
+    },
+    {
+      "title": "Rainbow lip balm collection color switch!💄 #lipbalm #makeup #lipgloss",
+      "tags": [],
+      "category": "People",
+      "duration": 10,
+      "views": 126441043,
+      "likes": 828280,
+      "comments": 1531,
+      "engagement": 829811
+    },
+    {
+      "title": "proper lip prep! #lipstickhacks #skincaretips #ipsy",
+      "tags": [
+        "ipsy",
+        "glam bag",
+        "ipsyOS",
+        "beauty",
+        "makeup",
+        "cosmetics",
+        "diy",
+        "tutorial",
+        "how to",
+        "tips",
+        "makeover",
+        "skin",
+        "skin care",
+        "products",
+        "hair",
+        "lip",
+        "nails",
+        "eyes"
+      ],
+      "category": "Howto",
+      "duration": 12,
+      "views": 65570963,
+      "likes": 608572,
+      "comments": 552,
+      "engagement": 609124
+    },
+    {
+      "title": "Purple  Mac Lipstick Balm",
+      "tags": [
+        "mac cosmetics",
+        "purple lipstick",
+        "lipstick",
+        "purple lips",
+        "lips",
+        "lip liner",
+        "mac",
+        "mac lipstick",
+        "gloss balm",
+        "gloss",
+        "gloss stick",
+        "makeup"
+      ],
+      "category": "People",
+      "duration": 44,
+      "views": 64612411,
+      "likes": 2616164,
+      "comments": 4376,
+      "engagement": 2620540
+    },
+    {
+      "title": "Packing Mini Suitcase with PURPLE Lip Balm Satisfying Video ASMR! 💜🍇☂️#shorts",
+      "tags": [
+        "#shorts",
+        "#asmr",
+        "#oddlysatisfying",
+        "satisfying videos",
+        "#mini",
+        "packing mini suitcase",
+        "#lipbalm",
+        "#asmrmakeup",
+        "#minithings",
+        "#cutethings"
+      ],
+      "category": "People",
+      "duration": 59,
+      "views": 46886289,
+      "likes": 1030170,
+      "comments": 5462,
+      "engagement": 1035632
+    },
+    {
+      "title": "Home Made Rose Petal Lip Balm #lipbalmIn",
+      "tags": [],
+      "category": "People",
+      "duration": 52,
+      "views": 38358294,
+      "likes": 1312366,
+      "comments": 4883,
+      "engagement": 1317249
+    },
+    {
+      "title": "Every lip balm must be sweet! #lipbalm #makeup",
+      "tags": [],
+      "category": "People",
+      "duration": 9,
+      "views": 38484584,
+      "likes": 300278,
+      "comments": 558,
+      "engagement": 300836
+    },
+    {
+      "title": "There’s been so many lip balm launches this year already, but barely any with spf? 🤨 #lipbalm #spf",
+      "tags": [],
+      "category": "Howto",
+      "duration": 12,
+      "views": 41419183,
+      "likes": 653967,
+      "comments": 2203,
+      "engagement": 656170
+    },
+    {
+      "title": "Doritos Cool Ranch Lip Balm Satisfying Video ASMR! #shorts #asmr",
+      "tags": [
+        "#shorts",
+        "#asmr",
+        "#oddlysatisfying",
+        "satisfying videos",
+        "#asmrmakeup",
+        "#lipbalm"
+      ],
+      "category": "People",
+      "duration": 25,
+      "views": 25613101,
+      "likes": 493463,
+      "comments": 1090,
+      "engagement": 494553
+    },
+    {
+      "title": "Our Mello Jello Lip Balms have finally arrived! Keep those lips moist and juicy all year long! 💋✨",
+      "tags": [],
+      "category": "People",
+      "duration": 12,
+      "views": 25560856,
+      "likes": 491528,
+      "comments": 1315,
+      "engagement": 492843
+    },
+    {
+      "title": "Sneaky Lip Balm Surprise #lipbalm #lipstick #shortsfeed #shortsviral #shorts #short #youtubeshorts",
+      "tags": [],
+      "category": "Pets",
+      "duration": 7,
+      "views": 25637180,
+      "likes": 167383,
+      "comments": 219,
+      "engagement": 167602
+    },
+    {
+      "title": "💄Creative Lip Gloss Lipstick Lip Balm Make-Up Phone ￼cover for iPhone 16Pro Max ￼antique mobilecase",
+      "tags": [],
+      "category": "People",
+      "duration": 107,
+      "views": 29353476,
+      "likes": 532198,
+      "comments": 2243,
+      "engagement": 534441
+    },
+    {
+      "title": "@sheglam_official pocket lip balm. #asmrvideo #asmrmakeup #asmr #asmrsounds #makeup #review",
+      "tags": [],
+      "category": "People",
+      "duration": 12,
+      "views": 36291489,
+      "likes": 366887,
+      "comments": 417,
+      "engagement": 367304
+    },
+    {
+      "title": "I MADE DIY LIPBALM AT HOME! 😱💄 #shorts #youtubeshorts",
+      "tags": [],
+      "category": "People",
+      "duration": 60,
+      "views": 19400032,
+      "likes": 350050,
+      "comments": 0,
+      "engagement": 350050
+    },
+    {
+      "title": "LIPBALM ALOE VERA YANG LAGI VIRAL NIH #shortvideo #shorts",
+      "tags": [],
+      "category": "Film",
+      "duration": 53,
+      "views": 15231891,
+      "likes": 243667,
+      "comments": 7511,
+      "engagement": 251178
+    }
+  ]
+}

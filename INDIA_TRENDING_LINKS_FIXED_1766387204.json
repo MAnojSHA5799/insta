@@ -1,0 +1,284 @@
+{
+  "top_trending_15": {
+    "total_videos": 15,
+    "hashtags": {
+      "bgmi": 4,
+      "shambhala": 3,
+      "anil rawat new song": 2,
+      "annapurna studios": 2,
+      "minecraft": 2,
+      "video": 2,
+      "khesari": 2,
+      "shilpi": 2,
+      "raksha": 2,
+      "khwaja ke deewane": 2,
+      "new khwaja qawwali": 2,
+      "ajmer sharif dargah": 2,
+      "nonstop khwaja qawwali": 2,
+      "2025 new qawwali": 2,
+      "khwaja ji": 2,
+      "मुझे ले चलो ख्वाजा जी के मेले में": 2,
+      "814 khwaja ji urs qawwali": 2,
+      "sakhi hamid husain": 2,
+      "814 khwaja ji urs": 2,
+      "khwaja moinuddin": 2
+    },
+    "locations": {
+      "{'latitude': 21.2786567, 'long": 1
+    },
+    "cities": {
+      "Chhattisgarh": 1
+    },
+    "top_hooks": {
+      "मुझे ले चलो ख्वाजा जी के ": 2,
+      "jana nayagan – oru pere v": 1,
+      "black clover second seaso": 1,
+      "is this the end ": 1,
+      "payal ki khanak | officia": 1,
+      "dacoit teaser (telugu) | ": 1,
+      "i joined villager job civ": 1,
+      "#video | #khesari lal yad": 1,
+      "aadi shambhala mystical t": 1,
+      "skyesports skirmish serie": 1,
+      "champion official trailer": 1,
+      "this is the ending: raist": 1,
+      "official trailer i dhanes": 1,
+      "voice pack opening | rank": 1
+    },
+    "top_videos_links": [
+      {
+        "title": "Jana Nayagan – Oru Pere Varalaaru Lyrical | Thalapathy Vijay",
+        "channel": "T-Series",
+        "views": 29673994,
+        "url": "https://www.youtube.com/watch?v=ip8o5hDFLhI",
+        "short_url": "https://youtu.be/ip8o5hDFLhI"
+      },
+      {
+        "title": "Black Clover Second Season | Official Trailer 2 | Crunchyrol",
+        "channel": "Crunchyroll",
+        "views": 1770390,
+        "url": "https://www.youtube.com/watch?v=BwdMT-OiARI",
+        "short_url": "https://youtu.be/BwdMT-OiARI"
+      },
+      {
+        "title": "Is this The End ?",
+        "channel": "Rai Star",
+        "views": 2578119,
+        "url": "https://www.youtube.com/watch?v=a6DS63Fh0es",
+        "short_url": "https://youtu.be/a6DS63Fh0es"
+      },
+      {
+        "title": "Payal Ki Khanak | Official Video | Hindi New Song | Anil Raw",
+        "channel": "Bhaigiri Music Star ",
+        "views": 333768,
+        "url": "https://www.youtube.com/watch?v=jpGlQyH8h-M",
+        "short_url": "https://youtu.be/jpGlQyH8h-M"
+      },
+      {
+        "title": "Dacoit Teaser (Telugu) | Adivi Sesh | Mrunal Thakur | Anurag",
+        "channel": "Annapurna Studios",
+        "views": 17985245,
+        "url": "https://www.youtube.com/watch?v=Hxe5D0VMmas",
+        "short_url": "https://youtu.be/Hxe5D0VMmas"
+      },
+      {
+        "title": "I Joined Villager Job Civilization in Minecraft..",
+        "channel": "Carry Depie",
+        "views": 677229,
+        "url": "https://www.youtube.com/watch?v=7-wRNgsP3_A",
+        "short_url": "https://youtu.be/7-wRNgsP3_A"
+      },
+      {
+        "title": "#VIDEO | #Khesari Lal Yadav | लहंगा में मीटर 2 | #Shilpi Raj",
+        "channel": "West Bhojpuri",
+        "views": 4256675,
+        "url": "https://www.youtube.com/watch?v=b9JZXO5e8IY",
+        "short_url": "https://youtu.be/b9JZXO5e8IY"
+      },
+      {
+        "title": "Aadi Shambhala Mystical Trailer - Aadi Sai Kumar | Archana I",
+        "channel": "BhavaniHD Movies",
+        "views": 2789211,
+        "url": "https://www.youtube.com/watch?v=_pCu3pf_FzE",
+        "short_url": "https://youtu.be/_pCu3pf_FzE"
+      },
+      {
+        "title": "SKYESPORTS SKIRMISH SERIES | #BGMI | DAY 2 | GRAND FINALS | ",
+        "channel": "Skyesports",
+        "views": 746147,
+        "url": "https://www.youtube.com/watch?v=Peey0lOOvz0",
+        "short_url": "https://youtu.be/Peey0lOOvz0"
+      },
+      {
+        "title": "मुझे ले चलो ख्वाजा जी के मेले में | 814 Khwaja Ji Urs Qawwal",
+        "channel": "Khwaja Ke Deewane",
+        "views": 407834,
+        "url": "https://www.youtube.com/watch?v=8Nn8e4yOUKQ",
+        "short_url": "https://youtu.be/8Nn8e4yOUKQ"
+      }
+    ],
+    "sample_links": [
+      "https://www.youtube.com/watch?v=ip8o5hDFLhI",
+      "https://www.youtube.com/watch?v=BwdMT-OiARI",
+      "https://www.youtube.com/watch?v=a6DS63Fh0es",
+      "https://www.youtube.com/watch?v=jpGlQyH8h-M",
+      "https://www.youtube.com/watch?v=Hxe5D0VMmas"
+    ]
+  },
+  "trending_60": {
+    "total_videos": 50,
+    "hashtags": {
+      "minecraft": 8,
+      "bgmi": 4,
+      "animals3d": 4,
+      "longslidegame": 4,
+      "funny3danimals": 4,
+      "anime": 3,
+      "shambhala": 3,
+      "trailer": 3,
+      "total gaming": 3,
+      "dekhne walon ne song": 3,
+      "anil rawat new song": 2,
+      "hindi song": 2,
+      "annapurna studios": 2,
+      "carry depie": 2,
+      "video": 2,
+      "khesari": 2,
+      "shilpi": 2,
+      "raksha": 2,
+      "khesari lal yadav": 2,
+      "india": 2
+    },
+    "locations": {
+      "{'latitude': 21.2786567, 'long": 1,
+      "{'latitude': 22.9867569, 'long": 1
+    },
+    "cities": {
+      "Chhattisgarh": 1,
+      "West Bengal": 1
+    },
+    "top_hooks": {
+      "मुझे ले चलो ख्वाजा जी के ": 2,
+      "jana nayagan – oru pere v": 1,
+      "black clover second seaso": 1,
+      "is this the end ": 1,
+      "payal ki khanak | officia": 1,
+      "dacoit teaser (telugu) | ": 1,
+      "i joined villager job civ": 1,
+      "#video | #khesari lal yad": 1,
+      "aadi shambhala mystical t": 1,
+      "skyesports skirmish serie": 1,
+      "champion official trailer": 1,
+      "this is the ending: raist": 1,
+      "official trailer i dhanes": 1,
+      "voice pack opening | rank": 1,
+      "aicheng | lakshyajit boru": 1
+    },
+    "top_videos_links": [
+      {
+        "title": "Jana Nayagan – Oru Pere Varalaaru Lyrical | Thalapathy Vijay",
+        "channel": "T-Series",
+        "views": 29673994,
+        "url": "https://www.youtube.com/watch?v=ip8o5hDFLhI",
+        "short_url": "https://youtu.be/ip8o5hDFLhI"
+      },
+      {
+        "title": "Black Clover Second Season | Official Trailer 2 | Crunchyrol",
+        "channel": "Crunchyroll",
+        "views": 1770390,
+        "url": "https://www.youtube.com/watch?v=BwdMT-OiARI",
+        "short_url": "https://youtu.be/BwdMT-OiARI"
+      },
+      {
+        "title": "Is this The End ?",
+        "channel": "Rai Star",
+        "views": 2578119,
+        "url": "https://www.youtube.com/watch?v=a6DS63Fh0es",
+        "short_url": "https://youtu.be/a6DS63Fh0es"
+      },
+      {
+        "title": "Payal Ki Khanak | Official Video | Hindi New Song | Anil Raw",
+        "channel": "Bhaigiri Music Star ",
+        "views": 333768,
+        "url": "https://www.youtube.com/watch?v=jpGlQyH8h-M",
+        "short_url": "https://youtu.be/jpGlQyH8h-M"
+      },
+      {
+        "title": "Dacoit Teaser (Telugu) | Adivi Sesh | Mrunal Thakur | Anurag",
+        "channel": "Annapurna Studios",
+        "views": 17985245,
+        "url": "https://www.youtube.com/watch?v=Hxe5D0VMmas",
+        "short_url": "https://youtu.be/Hxe5D0VMmas"
+      },
+      {
+        "title": "I Joined Villager Job Civilization in Minecraft..",
+        "channel": "Carry Depie",
+        "views": 677229,
+        "url": "https://www.youtube.com/watch?v=7-wRNgsP3_A",
+        "short_url": "https://youtu.be/7-wRNgsP3_A"
+      },
+      {
+        "title": "#VIDEO | #Khesari Lal Yadav | लहंगा में मीटर 2 | #Shilpi Raj",
+        "channel": "West Bhojpuri",
+        "views": 4256675,
+        "url": "https://www.youtube.com/watch?v=b9JZXO5e8IY",
+        "short_url": "https://youtu.be/b9JZXO5e8IY"
+      },
+      {
+        "title": "Aadi Shambhala Mystical Trailer - Aadi Sai Kumar | Archana I",
+        "channel": "BhavaniHD Movies",
+        "views": 2789211,
+        "url": "https://www.youtube.com/watch?v=_pCu3pf_FzE",
+        "short_url": "https://youtu.be/_pCu3pf_FzE"
+      },
+      {
+        "title": "SKYESPORTS SKIRMISH SERIES | #BGMI | DAY 2 | GRAND FINALS | ",
+        "channel": "Skyesports",
+        "views": 746147,
+        "url": "https://www.youtube.com/watch?v=Peey0lOOvz0",
+        "short_url": "https://youtu.be/Peey0lOOvz0"
+      },
+      {
+        "title": "मुझे ले चलो ख्वाजा जी के मेले में | 814 Khwaja Ji Urs Qawwal",
+        "channel": "Khwaja Ke Deewane",
+        "views": 407834,
+        "url": "https://www.youtube.com/watch?v=8Nn8e4yOUKQ",
+        "short_url": "https://youtu.be/8Nn8e4yOUKQ"
+      }
+    ],
+    "sample_links": [
+      "https://www.youtube.com/watch?v=ip8o5hDFLhI",
+      "https://www.youtube.com/watch?v=BwdMT-OiARI",
+      "https://www.youtube.com/watch?v=a6DS63Fh0es",
+      "https://www.youtube.com/watch?v=jpGlQyH8h-M",
+      "https://www.youtube.com/watch?v=Hxe5D0VMmas"
+    ]
+  },
+  "category_1_film_&_animation": {
+    "total_videos": 0,
+    "hashtags": {},
+    "locations": {},
+    "cities": {},
+    "top_hooks": {},
+    "top_videos_links": [],
+    "sample_links": []
+  },
+  "category_2_autos_&_vehicles": {
+    "total_videos": 0,
+    "hashtags": {},
+    "locations": {},
+    "cities": {},
+    "top_hooks": {},
+    "top_videos_links": [],
+    "sample_links": []
+  },
+  "category_10_music": {
+    "total_videos": 0,
+    "hashtags": {},
+    "locations": {},
+    "cities": {},
+    "top_hooks": {},
+    "top_videos_links": [],
+    "sample_links": []
+  }
+}

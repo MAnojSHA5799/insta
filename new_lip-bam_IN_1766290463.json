@@ -1,0 +1,140 @@
+{
+  "query": "lip-bam",
+  "region": "IN",
+  "search_time": "2025-12-21 09:44:22 IST",
+  "videos_analyzed": 15,
+  "trends": {
+    "tags": {
+      "ipsy": 1,
+      "glam bag": 1,
+      "ipsyos": 1,
+      "beauty": 1,
+      "makeup": 2,
+      "cosmetics": 1,
+      "diy": 1,
+      "tutorial": 1,
+      "how to": 1,
+      "tips": 1,
+      "makeover": 1,
+      "skin": 1,
+      "skin care": 1,
+      "products": 1,
+      "hair": 1,
+      "lip": 1,
+      "nails": 1,
+      "eyes": 1,
+      "mac cosmetics": 1,
+      "purple lipstick": 1,
+      "lipstick": 1,
+      "purple lips": 1,
+      "lips": 1,
+      "lip liner": 1,
+      "mac": 1,
+      "mac lipstick": 1,
+      "gloss balm": 1,
+      "gloss": 1,
+      "gloss stick": 1,
+      "#shorts": 2,
+      "#asmr": 2,
+      "#oddlysatisfying": 2,
+      "satisfying videos": 2,
+      "#mini": 1,
+      "packing mini suitcase": 1,
+      "#lipbalm": 2,
+      "#asmrmakeup": 2,
+      "#minithings": 1,
+      "#cutethings": 1
+    },
+    "hooks": {
+      "lipgloss keycha": 1,
+      "rainbow lip bal": 1,
+      "proper lip prep": 1,
+      "purple  mac lip": 1,
+      "packing mini su": 1,
+      "home made rose ": 1,
+      "every lip balm ": 1,
+      "there\u2019s been so": 1,
+      "doritos cool ra": 1,
+      "our mello jello": 1,
+      "sneaky lip balm": 1,
+      "\ud83d\udc84creative lip g": 1,
+      "@sheglam_offici": 1,
+      "i made diy lipb": 1,
+      "lipbalm aloe ve": 1
+    },
+    "category_stats": {
+      "People": 11,
+      "Howto": 2,
+      "Pets": 1,
+      "Film": 1
+    },
+    "duration_stats": {
+      "Under 5min": 15
+    },
+    "engagement_by_category": {
+      "People": {
+        "views": 566030004,
+        "likes": 9765262,
+        "comments": 21875,
+        "count": 11
+      },
+      "Howto": {
+        "views": 106985944,
+        "likes": 1262515,
+        "comments": 2755,
+        "count": 2
+      },
+      "Pets": {
+        "views": 25637130,
+        "likes": 167382,
+        "comments": 219,
+        "count": 1
+      },
+      "Film": {
+        "views": 15231822,
+        "likes": 243667,
+        "comments": 7511,
+        "count": 1
+      }
+    },
+    "music_category": [],
+    "top_performers": {
+      "highest_views": {
+        "title": "Rainbow lip balm collection color switch!\ud83d\udc84 #lipbalm #makeup #lipgloss",
+        "tags": [],
+        "category": "People",
+        "duration": 10,
+        "duration_secs": 10,
+        "views": 126440357,
+        "likes": 828278,
+        "comments": 1531,
+        "engagement": 829809
+      },
+      "highest_engagement": {
+        "title": "Purple  Mac Lipstick Balm",
+        "tags": [
+          "mac cosmetics",
+          "purple lipstick",
+          "lipstick",
+          "purple lips",
+          "lips",
+          "lip liner",
+          "mac",
+          "mac lipstick",
+          "gloss balm",
+          "gloss",
+          "gloss stick",
+          "makeup"
+        ],
+        "category": "People",
+        "duration": 44,
+        "duration_secs": 44,
+        "views": 64612340,
+        "likes": 2616156,
+        "comments": 4376,
+        "engagement": 2620532
+      }
+    },
+    "avg_engagement": 62.40893077663739
+  }
+}
