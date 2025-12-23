@@ -1,224 +1,300 @@
-// server.js (CommonJS)
-const express = require("express");
-const cors = require("cors");
+import streamlit as st
+import requests
+import json
+import re
+import time
+from collections import Counter
+from datetime import datetime, timedelta
+from urllib.parse import quote
+import pandas as pd
+import plotly.express as px
+import io
 
-const app = express();
-const PORT = process.env.PORT || 8000;
+# 🔥 Safe openpyxl import
+try:
+    import openpyxl
+    EXCEL_AVAILABLE = True
+except ImportError:
+    EXCEL_AVAILABLE = False
 
-app.use(cors());
-app.use(express.json());
+# Page config
+st.set_page_config(page_title="YouTube City Analyzer", layout="wide", page_icon="📺")
 
-// ----------------------
-// Valid Tokens
-// ----------------------
-const validTokens = new Set([
-  "token_fb_abc123",
-  "token_fb_demo",
-  "token_ig_abc123",
-  "token_ig_demo"
-]);
+BRAND_KEYWORDS = ['loreal', 'maybelline', 'lakme', 'mamaearth', 'nykaa', 'plum']
 
-// ----------------------
-// Dummy Users
-// ----------------------
-const fbBaseId = "122094043977116573";
-const igBaseId = "133094043977116573";
-const fbNames = [
-  { firstName: "Manoj", lastName: "Shakya", age: 25, dob: "05/07/1999", user_location: "Kanpur, India" },
-  { firstName: "Himanshu", lastName: "Yadav", age: 26, dob: "12/03/1998", user_location: "Noida, India" },
-  { firstName: "Jyoti", lastName: "Shakya", age: 24, dob: "11/08/1999", user_location: "Lucknow, India" },
-  { firstName: "Anshu", lastName: "Patel", age: 27, dob: "05/06/1997", user_location: "Ahmedabad, India" },
-  { firstName: "Mohit", lastName: "Kumar", age: 25, dob: "23/09/1999", user_location: "Bangalore, India" },
-  { firstName: "Rohit", lastName: "Verma", age: 28, dob: "15/02/1996", user_location: "Pune, India" },
-  { firstName: "Neha", lastName: "Kumar", age: 23, dob: "30/01/2000", user_location: "Chennai, India" },
-  { firstName: "Sara", lastName: "Ali", age: 22, dob: "12/12/2001", user_location: "Hyderabad, India" },
-  { firstName: "Aman", lastName: "Gupta", age: 29, dob: "09/11/1995", user_location: "Kolkata, India" },
-  { firstName: "Pooja", lastName: "Sharma", age: 26, dob: "17/07/1997", user_location: "Mumbai, India" },
-  
-  { firstName: "Imtiyaz", lastName: "Ansari", age: 29, dob: "28/04/1995", user_location: "Patna, India" },
-  { firstName: "Maryam", lastName: "Khan", age: 24, dob: "07/07/2000", user_location: "Ranchi, India" },
-  { 
-    firstName: "Maryam", 
-    lastName: "Khan", 
-    age: 24, 
-    dob: "07/07/2000", 
-    user_location: "Ranchi, India" 
-  },
-  {
-    firstName: "Kareena",
-    lastName: "Tekwani",
-    age: 25,
-    dob: "12/08/1999",
-    user_location: "Mumbai, India"
-  }
-    
-];
-
-// ----------------------
-// Generate FB Users
-// ----------------------
-const fbUsers = {};
-fbNames.forEach((user, i) => {
-  const id = (BigInt(fbBaseId) + BigInt(i)).toString();
-  fbUsers[id] = { ...user, id, friends: [] };
-});
-
-// Assign cyclic friends
-const fbIds = Object.keys(fbUsers);
-fbIds.forEach((id, i) => {
-  fbUsers[id].friends = fbIds
-    .slice(i + 1, i + 361)
-    .map(fid => ({ id: fid, firstName: fbUsers[fid].firstName, lastName: fbUsers[fid].lastName }));
-});
-
-// ----------------------
-// Generate IG Users
-// ----------------------
-const igUsers = {};
-fbNames.forEach((user, i) => {
-  const id = (BigInt(igBaseId) + BigInt(i)).toString();
-  igUsers[id] = { ...user, id, followers: [] };
-});
-
-// Assign cyclic followers safely
-const igIds = Object.keys(igUsers);
-igIds.forEach((id, i) => {
-  igUsers[id].followers = igIds
-    .slice(i + 1, i + 361) // small slice for safety
-    .map(fid => ({
-      id: fid,
-      username: igUsers[fid].firstName.toLowerCase() + "_" + igUsers[fid].lastName.toLowerCase()
-    }));
-});
-
-// ----------------------
-// Helper: validate token
-// ----------------------
-function checkToken(req) {
-  const token = req.query.token || req.headers["x-access-token"];
-  if (!token) return { ok: false, code: 401, msg: "Token missing" };
-  if (!validTokens.has(token)) return { ok: false, code: 403, msg: "Invalid token" };
-  return { ok: true, token };
+INDIA_CITIES = {
+    'kanpur': 'Uttar Pradesh', 'lucknow': 'Uttar Pradesh', 'noida': 'Uttar Pradesh', 
+    'agra': 'Uttar Pradesh', 'varanasi': 'Uttar Pradesh', 'allahabad': 'Uttar Pradesh',
+    'ghaziabad': 'Uttar Pradesh', 'meerut': 'Uttar Pradesh', 'bareilly': 'Uttar Pradesh',
+    'mumbai': 'Maharashtra', 'pune': 'Maharashtra', 'nagpur': 'Maharashtra',
+    'bangalore': 'Karnataka', 'mysore': 'Karnataka', 'delhi': 'Delhi',
+    'chennai': 'Tamil Nadu', 'hyderabad': 'Telangana', 'kolkata': 'West Bengal',
+    'ahmedabad': 'Gujarat', 'jaipur': 'Rajasthan', 'kochi': 'Kerala'
 }
 
-// ----------------------
-// Health Check
-// ----------------------
-app.get("/", (req, res) => {
-  res.json({ ok: true, message: "Mock Social Server Running..." });
-});
+def safe_api_call(url, api_key, retries=3):
+    """🔥 Ultra-safe API call"""
+    for attempt in range(retries):
+        try:
+            response = requests.get(url, timeout=20)
+            if response.status_code == 200:
+                data = response.json()
+                if 'error' not in data:
+                    return data
+            elif response.status_code == 429:
+                time.sleep(10)
+                continue
+            time.sleep(2)
+        except Exception as e:
+            print(f"Request Error: {e}")
+            time.sleep(2)
+    return None
 
-// ----------------------
-// FACEBOOK API
-// ----------------------
-app.get("/fb/:id", (req, res) => {
-  const { id } = req.params;
-  const check = checkToken(req);
-  if (!check.ok) return res.status(check.code).json({ error: check.msg });
+def test_api_key(api_key):
+    url = f"https://youtube.googleapis.com/youtube/v3/search?q=test&maxResults=1&key={api_key}"
+    data = safe_api_call(url, api_key)
+    return data is not None
 
-  const user = fbUsers[id];
-  if (!user) return res.status(404).json({ error: "Facebook user not found" });
+def search_videos(query, api_key, max_results=20):
+    """🔥 Search ALL video orders to get MAXIMUM results"""
+    video_ids = set()
+    
+    # 🔥 TRY ALL SORT ORDERS to get more videos
+    orders = ['date', 'viewCount', 'rating', 'relevance']
+    
+    for order in orders:
+        # Worldwide
+        url = f"https://youtube.googleapis.com/youtube/v3/search?part=snippet&q={quote(query)}&type=video&maxResults={max_results}&order={order}&key={api_key}"
+        data = safe_api_call(url, api_key)
+        if data and 'items' in data:
+            for item in data['items']:
+                video_ids.add(item['id']['videoId'])
+        
+        # India
+        url_in = f"https://youtube.googleapis.com/youtube/v3/search?part=snippet&q={quote(query)}&type=video&maxResults={max_results}&regionCode=IN&order={order}&key={api_key}"
+        data_in = safe_api_call(url_in, api_key)
+        if data_in and 'items' in data_in:
+            for item in data_in['items']:
+                video_ids.add(item['id']['videoId'])
+        
+        time.sleep(1)
+    
+    return list(video_ids)[:100]  # 🔥 MORE VIDEO IDs
 
-  res.json({
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    age: user.age,
-    dob: user.dob || null,
-    user_location: user.user_location,
-    friends: user.friends,
-    totalFriends: user.friends.length
-  });
-});
+def get_video_details(video_ids, api_key):
+    """🔥 NO DATE FILTER - SHOW ALL VIDEOS"""
+    all_videos = []
+    
+    for i in range(0, len(video_ids), 20):
+        batch = video_ids[i:i+20]
+        url = f"https://youtube.googleapis.com/youtube/v3/videos?part=snippet,statistics,contentDetails&id={','.join(batch)}&key={api_key}"
+        data = safe_api_call(url, api_key)
+        
+        if data and 'items' in data:
+            for item in data['items']:
+                try:
+                    published_date = item['snippet'].get('publishedAt', '')
+                    pub_datetime = datetime.fromisoformat(published_date.replace('Z', '+00:00'))
+                    
+                    video = {
+                        'Video_ID': item['id'],
+                        'Title': item['snippet'].get('title', '')[:100],
+                        'Channel': item['snippet'].get('channelTitle', ''),
+                        'Description': item['snippet'].get('description', '')[:300],
+                        'Published': published_date,
+                        'Published_Date': pub_datetime.strftime('%Y-%m-%d'),
+                        'Views': int(item['statistics'].get('viewCount', 0) or 0),
+                        'Likes': int(item['statistics'].get('likeCount', 0) or 0),
+                        'Comments': int(item['statistics'].get('commentCount', 0) or 0),
+                        'Duration': item['contentDetails'].get('duration', 'PT0S'),
+                        'Video_URL': f"https://youtu.be/{item['id']}",
+                        'Region': 'Mixed',
+                        'City': 'Other',
+                        'State': 'Other'
+                    }
+                    
+                    # Duration
+                    duration_match = re.search(r'PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?', video['Duration'])
+                    if duration_match:
+                        h, m, s = duration_match.groups()
+                        total_sec = (int(h or 0)*3600 + int(m or 0)*60 + int(s or 0))
+                        video['Duration_Formatted'] = f"{total_sec//60}m {total_sec%60:02d}s"
+                    else:
+                        video['Duration_Formatted'] = '0s'
+                    
+                    all_videos.append(video)
+                    time.sleep(0.5)
+                except Exception as e:
+                    print(f"Video parse error: {e}")
+                    continue
+    
+    return all_videos
 
-// ----------------------
-// INSTAGRAM API
-// ----------------------
-app.get("/ig/:id", (req, res) => {
-  const { id } = req.params;
-  const check = checkToken(req);
-  if (!check.ok) return res.status(check.code).json({ error: check.msg });
+def detect_locations(videos):
+    """🔥 City/State detection"""
+    city_counter = Counter()
+    state_counter = Counter()
+    
+    for video in videos:
+        text = (video['Title'] + ' ' + video['Description']).lower()
+        for city, state in INDIA_CITIES.items():
+            if city in text:
+                video['City'] = city.title()
+                video['State'] = state
+                city_counter[video['City']] += 1
+                state_counter[state] += 1
+                break
+        else:
+            video['City'] = 'Other'
+            video['State'] = 'Other'
+    
+    return videos, city_counter, state_counter
 
-  const user = igUsers[id];
-  if (!user) return res.status(404).json({ error: "Instagram user not found" });
+def create_excel_bytes(worldwide_videos, india_videos, city_counter, state_counter, query):
+    """🔥 Safe Excel creation"""
+    if not EXCEL_AVAILABLE:
+        return None, None
+    
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    filename = f"{query.upper().replace(' ', '_')}_ANALYSIS_{timestamp}.xlsx"
+    
+    output = io.BytesIO()
+    try:
+        with pd.ExcelWriter(output, engine='openpyxl') as writer:
+            pd.DataFrame(worldwide_videos).to_excel(writer, 'ALL_VIDEOS', index=False)
+            top_all = sorted(worldwide_videos, key=lambda x: x['Views'], reverse=True)[:50]
+            pd.DataFrame(top_all).to_excel(writer, 'TOP_50_VIDEOS', index=False)
+            city_df = pd.DataFrame(city_counter.most_common(20), columns=['City', 'Videos'])
+            city_df.to_excel(writer, 'CITY_RANKING', index=False)
+            state_df = pd.DataFrame(state_counter.most_common(15), columns=['State', 'Videos'])
+            state_df.to_excel(writer, 'STATE_RANKING', index=False)
+        output.seek(0)
+        return output.getvalue(), filename
+    except:
+        return None, None
 
-  const followersWithNested = user.followers.map(f => {
-    const followerUser = igUsers[f.id];
-    return {
-      id: f.id,
-      username: f.username,
-      totalFollowers: followerUser ? followerUser.followers.length : 0,
-      followers: followerUser ? followerUser.followers.slice(0, 50) : [] // small limit
-    };
-  });
+# 🔥 MAIN APP
+st.title("🚀 YouTube City Analyzer v28.0 - MAXIMUM DATA!")
+st.markdown("***✅ ALL videos | No date filter | 4x search methods | 100+ videos***")
 
-  res.json({
-    id: user.id,
-    firstName: user.firstName,
-    lastName: user.lastName,
-    user_location: user.user_location,
-    totalFollowers: user.followers.length,
-    followers: followersWithNested
-  });
-});
+# 🔥 Sidebar
+st.sidebar.header("🔑 API Setup")
+api_key = st.sidebar.text_input("Your YouTube API Key:", type="password", 
+                               placeholder="AIzaSyC... (60 characters)")
 
-// ----------------------
-// Tokens endpoints
-// ----------------------
-app.get("/__tokens", (req, res) => {
-  res.json({ validTokens: Array.from(validTokens) });
-});
+query = st.sidebar.text_input("🔍 Keyword:", value="lip balm")
+max_results = st.sidebar.slider("Max Videos/Query", 15, 50, 25)
 
-app.post("/add-token", (req, res) => {
-  const body = req.body;
-  if (!body || !body.token) return res.status(400).json({ error: "Provide token in body" });
-  validTokens.add(body.token.trim());
-  res.json({ success: true, tokens: Array.from(validTokens) });
-});
+if st.sidebar.button("🧪 Test API Key", type="secondary"):
+    if api_key:
+        if test_api_key(api_key):
+            st.sidebar.success("✅ API KEY PERFECT! 🎉")
+        else:
+            st.sidebar.error("❌ API Key failed")
 
-// ----------------------
-// Start server
-// ----------------------
-app.listen(PORT, () => {
-  console.log(`🚀 Mock Social Server running at http://localhost:${PORT}`);
-});
+# 🔥 ANALYZE BUTTON
+if st.sidebar.button("🚀 ANALYZE NOW", type="primary", disabled=not api_key):
+    if test_api_key(api_key):
+        with st.spinner("🔄 Fetching MAXIMUM YouTube data..."):
+            st.info("🔍 Using 4 search methods: date, views, rating, relevance")
+            
+            video_ids = search_videos(query, api_key, max_results)
+            st.info(f"📡 Found {len(video_ids)} unique video IDs")
+            
+            all_videos = get_video_details(video_ids, api_key)
+            
+            if all_videos:
+                analyzed_videos, city_counter, state_counter = detect_locations(all_videos)
+                
+                st.success(f"✅ LOADED {len(all_videos)} videos! 🎉")
+                
+                # 🔥 DASHBOARD
+                st.header("📊 COMPLETE RESULTS")
+                
+                # Metrics
+                col1, col2, col3, col4 = st.columns(4)
+                col1.metric("📺 Total Videos", len(all_videos))
+                col2.metric("👀 Total Views", f"{sum(v['Views'] for v in all_videos):,}")
+                col3.metric("🏙️ Cities Found", len([c for c in city_counter if c != 'Other']))
+                col4.metric("❤️ Total Likes", f"{sum(v['Likes'] for v in all_videos):,}")
+                
+                # 🔥 LATEST VIDEOS
+                st.subheader("🆕 LATEST VIDEOS")
+                latest_videos = sorted(all_videos, key=lambda x: x['Published'], reverse=True)[:20]
+                df_latest = pd.DataFrame(latest_videos)[['Title', 'Channel', 'Published_Date', 'Views', 'Video_URL']]
+                st.dataframe(df_latest, use_container_width=True, height=400)
+                
+                # 🔥 TOP VIDEOS
+                st.subheader("🔥 TOP VIDEOS by Views")
+                top_videos = sorted(all_videos, key=lambda x: x['Views'], reverse=True)[:20]
+                df_top = pd.DataFrame(top_videos)[['Title', 'Channel', 'Views', 'Likes', 'Video_URL']]
+                st.dataframe(df_top, use_container_width=True, height=400)
+                
+                # 🔥 Charts
+                col1, col2 = st.columns(2)
+                with col1:
+                    st.subheader("🏙️ Cities")
+                    if city_counter['Other'] != len(all_videos):
+                        city_df = pd.DataFrame(city_counter.most_common(10), columns=['City', 'Videos'])
+                        fig = px.bar(city_df, x='Videos', y='City', orientation='h', title="Top Cities")
+                        st.plotly_chart(fig, use_container_width=True)
+                    else:
+                        st.info("No Indian cities detected")
+                
+                with col2:
+                    st.subheader("🌟 States")
+                    state_df = pd.DataFrame(state_counter.most_common(8), columns=['State', 'Videos'])
+                    if state_df['State'].iloc[0] != 'Other':
+                        fig = px.bar(state_df, x='Videos', y='State', orientation='h', title="Top States")
+                        st.plotly_chart(fig, use_container_width=True)
+                    else:
+                        st.info("No Indian states detected")
+                
+                # 🔥 ALL TABLES
+                st.markdown("---")
+                
+                st.subheader("📋 TOP 50 VIDEOS")
+                top_50 = sorted(all_videos, key=lambda x: x['Views'], reverse=True)[:50]
+                df_top50 = pd.DataFrame(top_50)[['Title', 'Channel', 'Views', 'Likes', 'Published_Date', 'City', 'Video_URL']]
+                st.dataframe(df_top50, use_container_width=True, height=600)
+                
+                st.subheader("🏙️ CITY RANKING")
+                city_df_full = pd.DataFrame(city_counter.most_common(20), columns=['City', 'Videos'])
+                st.dataframe(city_df_full, use_container_width=True, height=300)
+                
+                st.subheader("🌟 STATE RANKING")
+                state_df_full = pd.DataFrame(state_counter.most_common(15), columns=['State', 'Videos'])
+                st.dataframe(state_df_full, use_container_width=True, height=300)
+                
+                with st.expander("📊 ALL RAW DATA"):
+                    st.dataframe(pd.DataFrame(all_videos), use_container_width=True, height=800)
+                
+                # 🔥 Excel
+                st.subheader("💾 Download Excel")
+                excel_data, filename = create_excel_bytes(all_videos, all_videos, city_counter, state_counter, query)
+                if excel_data:
+                    st.download_button(
+                        label=f"📥 Download {filename}",
+                        data=excel_data,
+                        file_name=filename,
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                    )
+                else:
+                    st.info("📊 Excel unavailable - All data shown above!")
+            else:
+                st.error("❌ NO VIDEOS PROCESSED. Check API quota!")
+                st.info(f"🔍 Searched: '{query}' | 📡 Got {len(video_ids)} IDs")
+    else:
+        st.error("❌ API Key failed")
 
+# 🔥 Instructions
+with st.expander("📖 API Setup"):
+    st.markdown("""
+    1. [Google Cloud Console](https://console.cloud.google.com)
+    2. New Project → **YouTube Data API v3** → ENABLE
+    3. Credentials → **API Key**
+    4. Copy key → Test ✅
+    """)
 
-
-
-
-// State and city waise
-// search time (din me kitne bar)
-// city wise like all cities ()
-// Key words for brand-wise 
-
-Today
-// Key words for brand-wise 
-// kon si website pr jada seacrh and purchase (amazon , filpkart, personal website, Nikka, Zepto, blinkit, Mytra, messo, instamart)
-// price range traffic (kis city se)
-
-// best lip-bam for winnter
-// // best hair scrum 
-
-Youtube
-
-top 15 city demand me bhi kon si city me demand jada hai and time wise 
-
-
-
-
-
-1. Face serum kon sa demand me hai
-2. lip-bam
-3. moisturizer
-4. underarm roll on
-5. # tag
-6. hookups
-7. category wise kon sa video trend me hai
-8. category wise kon sa hookups and hashtag trend me hai
-9. kon sa music category wise trend me hai 
-10. kinte time ka video sabse jada attention kr rha hai
-11. Kitne der kon video ko dekhta hai
-12. kis tarha k video pr sabse jada like and views aa rha hai
-13. kon kon sa algorithm hai category wise
-(key words and demand)
+st.sidebar.markdown("---")
+st.sidebar.markdown("**✅ v28.0 - MAX DATA**\n*No date filter | 100+ videos*")
