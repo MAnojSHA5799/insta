@@ -1,11 +1,15 @@
+import streamlit as st
 import requests
 import json
 import random
 from datetime import datetime
 import re
 from collections import Counter
+import pandas as pd
+import plotly.express as px
 
-API_KEY = "aywRM7ESwi8P87FWkmLeFW3B"
+# 🔥 CONFIG (Same as original)
+API_KEY = "DLKRiBr99vwaRJzHBZJUWnUJ"
 BASE_URL = "https://www.searchapi.io/api/v1/search"
 
 MAJOR_CITIES = [
@@ -16,11 +20,10 @@ MAJOR_CITIES = [
     "Ghaziabad", "Ludhiana", "Agra", "Nashik", "Faridabad", "Meerut"
 ]
 
-# 🔥 AGE BRACKETS WITH PRIORITY
 AGE_GROUPS = {
-    "hair_growth": ["25-34", "35-44", "18-24"],  # Young adults
-    "hair_fall": ["35-44", "45-54", "25-34"],     # Mature adults
-    "hair_gray": ["45-54", "55+", "35-44"],       # Older adults
+    "hair_growth": ["25-34", "35-44", "18-24"],
+    "hair_fall": ["35-44", "45-54", "25-34"],
+    "hair_gray": ["45-54", "55+", "35-44"],
     "general": ["18-24", "25-34", "35-44", "45-54", "55+", "Gen Z", "Millennials", "Gen X"]
 }
 
@@ -28,10 +31,8 @@ SEARCH_TIME_SLOTS = ["12-3AM", "3-6AM", "6-9AM", "9-12PM", "12-3PM", "3-6PM", "6
 
 PLATFORMS = ["Amazon", "Flipkart", "Meesho", "Myntra", "Nykaa", "Zepto", "Blinkit", "Instamart", "Personal Website"]
 
-# 🔥 REAL PRICE RANGES (like 199, 499)
 PRICE_RANGES = ["₹199", "₹299", "₹399", "₹499", "₹599", "₹699", "₹799", "₹999", "₹1299", "₹1999"]
 
-# 🔥 NATURAL KEYWORDS (Real search patterns)
 CATEGORY_CONFIG = {
     "hair_growth": {
         "type": "spiky",
@@ -66,40 +67,36 @@ CATEGORY_CONFIG = {
 CURRENT_MONTH = datetime.now().month
 CURRENT_SEASON = "winter" if CURRENT_MONTH in [12, 1, 2] else "summer"
 
+# 🔥 Page config
+st.set_page_config(page_title="🔍 Search Demand Analyzer", layout="wide", page_icon="📈")
+
 def detect_category_and_intent(query):
-    """🔥 Detect category + search intent"""
     query_lower = query.lower()
-    
-    if any(intent in query_lower for intent in ["growth", "grow"]):
-        return "hair_growth"
-    elif any(intent in query_lower for intent in ["fall", "loss"]):
-        return "hair_fall"
-    elif any(intent in query_lower for intent in ["gray", "white", "grey"]):
-        return "hair_gray"
-    elif "lotion" in query_lower:
-        return "body_lotion"
-    elif "serum" in query_lower or "hair" in query_lower:
-        return "hair_growth"  # Default hair category
+    if any(intent in query_lower for intent in ["growth", "grow"]): return "hair_growth"
+    elif any(intent in query_lower for intent in ["fall", "loss"]): return "hair_fall"
+    elif any(intent in query_lower for intent in ["gray", "white", "grey"]): return "hair_gray"
+    elif "lotion" in query_lower: return "body_lotion"
+    elif "serum" in query_lower or "hair" in query_lower: return "hair_growth"
     return "general"
 
 def get_age_groups(intent):
-    """🔥 Age brackets by search intent"""
     return AGE_GROUPS.get(intent, AGE_GROUPS["general"])
 
 def get_category_keywords(category):
-    """🔥 Natural search keywords"""
     return CATEGORY_CONFIG.get(category, {}).get("keywords", ["best", "top", "review"])
 
 def fetch_search_demand(keyword):
     params = {"engine": "google", "q": keyword, "gl": "in", "hl": "en", "num": 10, "api_key": API_KEY}
-    print("🔍 Searching Google via SearchAPI...")
-    response = requests.get(BASE_URL, params=params)
-    print("HTTP Status:", response.status_code)
-    data = response.json()
-    if "error" in data:
-        print("❌ API ERROR:", data["error"])
+    try:
+        response = requests.get(BASE_URL, params=params, timeout=15)
+        data = response.json()
+        if "error" in data:
+            st.error(f"❌ API Error: {data['error']}")
+            return None
+        return data
+    except Exception as e:
+        st.error(f"❌ Request failed: {str(e)}")
         return None
-    return data
 
 def parse_demand_signal(data):
     result = {"timestamp": datetime.now().isoformat(), "organic_results_count": 0, "related_queries": [], "people_also_ask": []}
@@ -112,21 +109,14 @@ def extract_target_cities_and_count(query):
     query_lower = query.lower()
     target_count = 15
     numbers = re.findall(r'top\s+(\d+)', query_lower)
-    if numbers:
-        target_count = min(int(numbers[0]), len(MAJOR_CITIES))
+    if numbers: target_count = min(int(numbers[0]), len(MAJOR_CITIES))
     cities = [city for city in MAJOR_CITIES if city.lower() in query_lower]
-    if cities:
-        target_cities = cities[:target_count]
-    else:
-        target_cities = MAJOR_CITIES[:target_count]
-    print(f"🎯 Target: {target_count} cities | Selected: {', '.join(target_cities[:5])}...")
-    return target_cities, target_count
+    if cities: return cities[:target_count], target_count
+    return MAJOR_CITIES[:target_count], target_count
 
 def generate_brand_keywords(base_keyword, category):
-    """🔥 Natural keywords + brands"""
     config = CATEGORY_CONFIG.get(category, {"brands": ["best", "top"], "keywords": []})
     all_keywords = config["brands"] + config["keywords"][:3]
-    
     keywords_data = []
     for kw in all_keywords:
         keywords_data.append({
@@ -140,15 +130,12 @@ def generate_brand_keywords(base_keyword, category):
 def generate_platform_analysis(category):
     platform_data = []
     quick_commerce_boost = 1.4 if category in ["hair_fall", "body_lotion"] else 1.0
-    
     for platform in PLATFORMS:
         traffic = random.randint(45000, 320000)
         conversion = random.uniform(2.8, 9.2)
         market_share = random.randint(7, 38)
-        
         if platform in ["Zepto", "Blinkit", "Instamart"]:
             market_share = int(market_share * quick_commerce_boost)
-            
         platform_data.append({
             "platform": platform,
             "traffic_share": f"{traffic:,}",
@@ -158,10 +145,8 @@ def generate_platform_analysis(category):
     return sorted(platform_data, key=lambda x: x["market_share"], reverse=True)
 
 def generate_price_range_analysis(city_data, category):
-    """🔥 Real prices like ₹199, ₹499"""
     price_data = []
     top_cities = [item['city'] for item in city_data[:6]]
-    
     for city in top_cities:
         for price in PRICE_RANGES:
             traffic = random.randint(1800, 14500)
@@ -175,7 +160,7 @@ def generate_price_range_analysis(city_data, category):
 
 def generate_city_demand_ranking(target_cities, target_count, category):
     all_data = []
-    intent = detect_category_and_intent("hair")  # Default
+    intent = detect_category_and_intent("hair")
     age_groups = get_age_groups(intent)
     peak_times = CATEGORY_CONFIG.get(category, {}).get("peak_times", SEARCH_TIME_SLOTS)
     
@@ -185,7 +170,7 @@ def generate_city_demand_ranking(target_cities, target_count, category):
     for city in target_cities:
         for _ in range(entries_per_city):
             if len(all_data) >= target_count: break
-            age_group = random.choice(age_groups)  # 🔥 Intent-specific ages!
+            age_group = random.choice(age_groups)
             interest_score = min(100, city_demand_scores[city] + random.randint(-7, 7))
             peak_time = random.choice(peak_times)
             searches = random.randint(5200, 52000)
@@ -242,65 +227,135 @@ def enhanced_parse_demand_signal(data, original_query):
     })
     return result
 
-def main():
-    test_queries = [
-        "hair serum for hair growth top 15 city",
-        "hair oil for hair fall top 12 city", 
-        "hair serum for hair gray top 10 city",
-        "body lotion demand top 8 city"
-    ]
-    
-    for keyword in test_queries:
-        category = detect_category_and_intent(keyword)
-        print(f"\n{'='*170}")
-        print(f"🔍 QUERY: {keyword}")
-        print(f"🏷️ INTENT: {category.upper()} | 👥 AGE: {', '.join(get_age_groups(category)[:3])} | ❄️ SEASON: {CURRENT_SEASON.upper()}")
-        print('='*170)
-        
-        data = fetch_search_demand(keyword)
-        if not data: continue
-        
-        parsed = enhanced_parse_demand_signal(data, keyword)
-        
-        print(f"\n📊 ORIGINAL DEMAND:")
-        print(f"Organic results: {parsed['organic_results_count']}")
-        print("Related: ", parsed['related_queries'][:3])
-        
-        print(f"\n🏆 TOP 10 CITIES ({category.upper()} DEMAND):")
-        print("=" * 150)
-        for i, item in enumerate(parsed['city_demand_ranking'][:10], 1):
-            print(f"{i:2d}. {item['city']:12s} | DEMAND {item['demand_score']:4s} | AGE {item['age_group']:8s} | {item['search_volume']:8s} | ⏰{item['peak_search_time']:8s}")
-        
-        print(f"\n🔥 TOP CITIES BY AGE GROUP:")
-        for i, (city, stats) in enumerate(parsed['top_5_demand_cities'][:5], 1):
-            print(f"{i}. {city:12s} | {stats['avg_demand']:5.1f}% | Peak: {stats['dominant_time']:8s}")
-        
-        print(f"\n⏰ TOP PEAK TIMES:")
-        for i, (time_slot, count) in enumerate(parsed['top_3_peak_times'][:3], 1):
-            print(f"{i}. {time_slot:12s} → {count} cities")
-        
-        print(f"\n🔑 TOP NATURAL KEYWORDS ({category.upper()}):")
-        print("-" * 100)
-        for i, kw in enumerate(parsed['brand_keywords'], 1):
-            print(f"{i}. '{kw['keyword']}' → {kw['search_volume']} | Score: {kw['brand_score']}%")
-        
-        print(f"\n🛒 ALL 9 PLATFORMS:")
-        print("=" * 95)
-        for i, platform in enumerate(parsed['platform_analysis'], 1):
-            print(f"{i:2d}. {platform['platform']:14s} | Traffic: {platform['traffic_share']:10s} | Conv: {platform['conversion_rate']:5s}")
-        
-        print(f"\n💰 HOT PRICE POINTS:")
-        print("-" * 75)
-        for i, pr in enumerate(parsed['price_range_traffic'][:8], 1):
-            print(f"{i:2d}. {pr['city']:12s} | {pr['price_range']:6s} | {pr['traffic']}")
-        
-        print(f"\n🎯 KEY INSIGHTS:")
-        print(f"• #1 City: {parsed['city_demand_ranking'][0]['city']} ({parsed['city_demand_ranking'][0]['demand_score']})")
-        print(f"• #1 Keyword: '{parsed['brand_keywords'][0]['keyword']}'")
-        print(f"• Top Platform: {parsed['platform_analysis'][0]['platform']} ({parsed['platform_analysis'][0]['market_share']}%)")
-        print(f"• Hottest Price: {parsed['price_range_traffic'][0]['price_range']}")
-        print(f"• Peak Age Group: {parsed['city_demand_ranking'][0]['age_group']}")
-        print("=" * 170)
+# 🔥 MAIN STREAMLIT APP
+st.title("🔍 Search Demand Analyzer v2.0")
+st.markdown("***AI-Powered Google Search Demand Analysis | City-wise + Age + Platform Insights***")
 
-if __name__ == "__main__":
-    main()
+# 🔥 Sidebar
+st.sidebar.header("🔧 API Setup")
+api_key_input = st.sidebar.text_input("SearchAPI Key:", value=API_KEY, type="password")
+st.sidebar.info("👈 Enter your [SearchAPI key](https://searchapi.io/)")
+
+query = st.sidebar.text_input("🔍 Search Query:", value="hair serum for hair growth top 15 city")
+num_cities = st.sidebar.slider("🏙️ Number of Cities", 5, 25, 15)
+
+if st.sidebar.button("🚀 ANALYZE DEMAND", type="primary"):
+    if not api_key_input:
+        st.sidebar.error("👈 Enter API key first!")
+    else:
+        with st.spinner("🔄 Analyzing search demand..."):
+            # 🔥 Real API call
+            data = fetch_search_demand(query)
+            
+            if data:
+                parsed = enhanced_parse_demand_signal(data, query)
+                category = parsed['detected_category']
+                
+                # 🔥 MAIN DASHBOARD
+                st.header("📊 DEMAND ANALYSIS RESULTS")
+                
+                # 🔥 Category & Insights
+                col1, col2, col3 = st.columns(3)
+                col1.metric("🏷️ Category", category.upper())
+                col2.metric("👥 Target Age", ", ".join(parsed['age_brackets'][:3]))
+                col3.metric("❄️ Season", CURRENT_SEASON.upper())
+                
+                # 🔥 TOP CITIES CHART
+                st.subheader("🏆 TOP CITIES DEMAND RANKING")
+                city_df = pd.DataFrame(parsed['city_demand_ranking'][:10])
+                fig_city = px.bar(city_df, x='demand_score', y='city', orientation='h',
+                                title=f"Top {len(city_df)} Cities - Demand Score",
+                                color='demand_score', color_continuous_scale='Viridis')
+                st.plotly_chart(fig_city, use_container_width=True)
+                
+                st.dataframe(city_df[['rank', 'city', 'demand_score', 'age_group', 'search_volume', 'peak_search_time']], 
+                           use_container_width=True)
+                
+                # 🔥 KEYWORD & PLATFORM ANALYSIS
+                col_k1, col_k2 = st.columns(2)
+                with col_k1:
+                    st.markdown("### 🔑 TOP KEYWORDS")
+                    kw_df = pd.DataFrame(parsed['brand_keywords'])
+                    st.dataframe(kw_df, use_container_width=True)
+                
+                with col_k2:
+                    st.markdown("### 🛒 PLATFORM ANALYSIS")
+                    platform_df = pd.DataFrame(parsed['platform_analysis'][:8])
+                    st.dataframe(platform_df, use_container_width=True)
+                
+                # 🔥 PRICE & TIME ANALYSIS
+                col_p1, col_p2 = st.columns(2)
+                with col_p1:
+                    st.markdown("### 💰 HOT PRICE POINTS")
+                    price_df = pd.DataFrame(parsed['price_range_traffic'][:10])
+                    st.dataframe(price_df, use_container_width=True)
+                
+                with col_p2:
+                    st.markdown("### ⏰ PEAK SEARCH TIMES")
+                    time_df = pd.DataFrame(parsed['top_3_peak_times'], columns=['time_slot', 'cities'])
+                    fig_time = px.bar(time_df, x='cities', y='time_slot', orientation='h',
+                                    title="Peak Search Times", color='cities')
+                    st.plotly_chart(fig_time, use_container_width=True)
+                
+                # 🔥 Google Data
+                st.markdown("### 🌐 GOOGLE INSIGHTS")
+                col_g1, col_g2 = st.columns(2)
+                with col_g1:
+                    st.metric("📈 Organic Results", parsed['organic_results_count'])
+                    st.write("**Related Searches:**")
+                    for q in parsed['related_queries'][:5]:
+                        st.write(f"• {q}")
+                
+                with col_g2:
+                    st.write("**People Also Ask:**")
+                    for q in parsed['people_also_ask'][:5]:
+                        st.write(f"• {q}")
+                
+                # 🔥 SUMMARY INSIGHTS
+                st.markdown("---")
+                st.subheader("🎯 ACTIONABLE INSIGHTS")
+                col1, col2, col3, col4 = st.columns(4)
+                
+                top_city = parsed['city_demand_ranking'][0]
+                top_kw = parsed['brand_keywords'][0]
+                top_platform = parsed['platform_analysis'][0]
+                top_price = parsed['price_range_traffic'][0]
+                
+                col1.metric("🏙️ #1 City", top_city['city'])
+                col2.metric("🔑 #1 Keyword", top_kw['keyword'][:30] + "...")
+                col3.metric("🛒 #1 Platform", top_platform['platform'])
+                col4.metric("💰 Hottest Price", top_price['price_range'])
+                
+                # 🔥 Excel Download
+                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                filename = f"DEMAND_ANALYSIS_{query.replace(' ', '_')}_{timestamp}.xlsx"
+                
+                with pd.ExcelWriter("temp_analysis.xlsx", engine='openpyxl') as writer:
+                    pd.DataFrame(parsed['city_demand_ranking']).to_excel(writer, 'TOP_CITIES', index=False)
+                    pd.DataFrame(parsed['brand_keywords']).to_excel(writer, 'TOP_KEYWORDS', index=False)
+                    pd.DataFrame(parsed['platform_analysis']).to_excel(writer, 'PLATFORMS', index=False)
+                    pd.DataFrame(parsed['price_range_traffic']).to_excel(writer, 'PRICE_ANALYSIS', index=False)
+                
+                with open("temp_analysis.xlsx", "rb") as f:
+                    st.download_button(
+                        label=f"📥 Download Excel ({filename})",
+                        data=f,
+                        file_name=filename,
+                        mime="application/vnd.openpyxlformats-officedocument.spreadsheetml.sheet"
+                    )
+            else:
+                st.error("❌ No data returned from API")
+
+# 🔥 Instructions
+with st.expander("📖 How to Get SearchAPI Key"):
+    st.markdown("""
+    1. Go to [searchapi.io](https://searchapi.io/)
+    2. **Sign Up** → Get FREE $5 credit
+    3. **Dashboard** → Copy API Key
+    4. Paste in sidebar → **ANALYZE** ✅
+    
+    **Free tier**: 100 searches/month
+    """)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("**✅ Search Demand Analyzer v2.0**\n*City + Age + Platform Insights*")
