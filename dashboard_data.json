@@ -1,0 +1,90 @@
+{
+    "CATEGORY_DATA": {
+      "hair_care": {
+        "description": "Complete hair care analysis including growth, fall control, oils, shampoos & serums",
+        "subcategories": ["hair_growth", "hair_fall", "hair_oil", "shampoo", "hair_serum", "conditioner", "hair_mask", "hair_color", "hair_spray", "leave_in", "hair_thinning", "dandruff_treatment", "scalp_care", "hair_thickening", "hair_straightening", "curl_enhancer", "anti_frizz", "heat_protectant", "split_ends", "dry_scalp"],
+        "keywords": ["hair", "shampoo", "serum", "oil", "conditioner", "mask", "growth", "fall", "dandruff", "thinning", "scalp", "thickening", "straightening", "curl", "frizz", "split", "dry", "volume", "shine", "repair", "damage"],
+        "brands": ["Mamaearth", "Minimalist", "The Ordinary", "Biotique", "Himalaya", "L'Oreal", "Dove", "Tresemme", "Pantene", "Head & Shoulders", "Garnier", "Indulekha", "Khadi Natural", "WOW Skin Science", "Streax", "Vatika", "Parachute", "Matrix", "Loreal Professional", "Schwarzkopf", "Moroccanoil", "Olaplex", "Kérastase", "Aveda", "Bumble and Bumble", "Living Proof"],
+        "ingredients": {
+          "hair_growth": ["Biotin", "Redensyl", "Minoxidil", "Rosemary Oil", "Anagain", "Capixyl"],
+          "hair_fall": ["Saw Palmetto", "Biotin", "Caffeine", "Argan Oil", "Bhringraj", "Amla"],
+          "hair_oil": ["Coconut Oil", "Castor Oil", "Onion Extract", "Argan Oil", "Olive Oil"],
+          "shampoo": ["Aloe Vera", "Tea Tree Oil", "Biotin", "Keratin", "Arginine"],
+          "hair_serum": ["Redensyl", "Anagain", "Arginine", "Peptide", "Hyaluronic Acid"]
+        }
+      },
+      "skin_care": {
+        "description": "Full skincare suite: face wash, serums, underarm rollers, sunscreens, toners & creams",
+        "subcategories": ["face_wash", "serum", "moisturizer", "sunscreen", "underarms", "body_lotion", "underarm_roller", "face_cream", "eye_cream", "toner", "face_scrub", "face_mask"],
+        "keywords": ["skin", "moisturizer", "face", "wash", "serum", "sunscreen", "underarms", "roller", "underarm", "cream", "toner", "scrub", "mask", "acne", "aging", "glow"],
+        "brands": ["Minimalist", "The Ordinary", "CeraVe", "Neutrogena", "Plum", "Mamaearth", "Dot & Key", "Reequil", "Foxtale", "Deconstruct", "Naturium", "Paula's Choice"],
+        "ingredients": {
+          "face_wash": ["Salicylic Acid", "Niacinamide", "Tea Tree Oil"],
+          "serum": ["Vitamin C", "Retinol", "Hyaluronic Acid"],
+          "moisturizer": ["Hyaluronic Acid", "Ceramides", "Shea Butter"],
+          "sunscreen": ["Zinc Oxide", "Titanium Dioxide", "Avobenzone"],
+          "underarm_roller": ["Niacinamide", "Alpha Arbutin", "Kojic Acid"]
+        }
+      },
+      "cosmetics": {
+        "description": "Makeup essentials: eyeliners, mascaras, foundations, lip products, blush & highlighters",
+        "subcategories": ["lip_balm", "lipstick", "foundation", "kajal", "eyeliner", "mascara", "lipgloss", "blush", "highlighter"],
+        "keywords": ["cosmetic", "lipstick", "lip", "kajal", "foundation", "eyeliner", "mascara", "lipgloss", "blush", "highlighter"],
+        "brands": ["Maybelline", "Lakme", "Nykaa", "MAC", "Sugar Cosmetics", "Insight Cosmetics"],
+        "ingredients": {
+          "lip_balm": ["Shea Butter", "Beeswax", "Vitamin E"],
+          "lipstick": ["Beeswax", "Shea Butter", "Castor Oil"],
+          "eyeliner": ["Waterproof Formula", "Long Lasting Pigments"]
+        }
+      }
+    },
+    "HOOKUPS_DATABASE": {
+      "hair_care": {
+        "Shampoo": ["anti dandruff shampoo", "sulfate free shampoo", "nourishing shampoo", "keratin repair shampoo", "growth booster shampoo", "hair fall shampoo", "baby shampoo", "protein shampoo", "volume shampoo"],
+        "Hair Oil": ["hair regrowth oil", "onion hair oil", "hair strengthening oil", "castor oil hair", "coconut hair oil", "bhringraj oil"],
+        "Hair Serum": ["hair growth serum", "anti hairfall serum", "hair fall serum", "redensyl serum", "anagain serum", "scalp serum"],
+        "Conditioner": ["hair conditioner", "damage repair conditioner", "frizz control conditioner", "protein conditioner"],
+        "Hair Mask": ["hair spa mask", "deep conditioning mask", "protein hair mask"]
+      },
+      "skin_care": {
+        "Face Wash": ["salicylic acid face wash", "niacinamide face wash", "acne face wash", "gentle face wash", "vitamin c face wash", "tea tree face wash"],
+        "Serum": ["vitamin c serum", "hyaluronic acid serum", "niacinamide serum", "retinol serum", "salicylic acid serum"],
+        "Moisturizer": ["hyaluronic acid moisturizer", "ceramide moisturizer", "gel moisturizer", "night cream moisturizer"],
+        "Sunscreen": ["spf 50 sunscreen", "sunscreen gel", "matte sunscreen", "sunscreen cream", "tinted sunscreen"],
+        "Underarm Roller": ["underarm whitening roller", "dark underarm roller", "underarm brightening roll on", "sweat control roller", "deodorant roller underarm"],
+        "Body Lotion": ["whitening body lotion", "niacinamide body lotion", "moisturizing body lotion"],
+        "Face Cream": ["anti aging face cream", "night face cream", "day cream"],
+        "Eye Cream": ["dark circle eye cream", "anti wrinkle eye cream"],
+        "Toner": ["rose water toner", "niacinamide toner", "vitamin c toner"]
+      },
+      "cosmetics": {
+        "Lipstick": ["long lasting lipstick", "matte lipstick", "liquid lipstick", "nude lipstick", "red lipstick", "pink lipstick"],
+        "Kajal": ["waterproof kajal", "smudge proof kajal", "black kajal", "kohl kajal", "gel kajal"],
+        "Eyeliner": ["liquid eyeliner", "gel eyeliner", "wing eyeliner", "waterproof eyeliner", "felt tip eyeliner"],
+        "Mascara": ["volume mascara", "lengthening mascara", "waterproof mascara"],
+        "Foundation": ["liquid foundation", "cushion foundation", "bb cream foundation"],
+        "Lip Balm": ["lip balm spf", "medicated lip balm", "tinted lip balm"],
+        "Lip Gloss": ["shiny lip gloss", "plumping lip gloss"],
+        "Blush": ["cream blush", "powder blush"],
+        "Highlighter": ["liquid highlighter", "powder highlighter"]
+      }
+    },
+    "HASHTAGS_DATABASE": {
+      "hair_care": {
+        "high_reach": ["#HairCare", "#HairGrowth", "#HairFall", "#HairOil", "#HairSerum"],
+        "trending": ["#Redensyl", "#Biotin", "#OnionOil", "#HairThickening", "#HairCareRoutine"],
+        "viral": ["#HairTransformation", "#BeforeAfterHair", "#HairCareTips"]
+      },
+      "skin_care": {
+        "high_reach": ["#Skincare", "#SkinCareRoutine", "#GlowUp", "#HealthySkin", "#SkincareAddict"],
+        "trending": ["#VitaminC", "#Niacinamide", "#HyaluronicAcid", "#Sunscreen", "#UnderarmWhitening"],
+        "viral": ["#GlassSkin", "#KoreanSkincare", "#SkincareRoutine"]
+      },
+      "cosmetics": {
+        "high_reach": ["#Makeup", "#Lipstick", "#Beauty", "#MUA", "#MakeupLovers"],
+        "trending": ["#MatteLipstick", "#LiquidLipstick", "#KajalLovers", "#Eyeliner", "#Mascara"],
+        "viral": ["#MakeupTutorial", "#GRWM", "#BeautyHacks", "#EyelinerChallenge"]
+      }
+    }
+  }
+  
