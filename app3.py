@@ -1072,12 +1072,15 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import io
 
+
 # 🔥 CONFIG - NO SECRETS NEEDED
 BASE_URL = "https://www.searchapi.io/api/v1/search"
+
 
 # 🔥 COMPLETE DATA CONFIG
 TIME_SLOTS = ["12-3AM", "3-6AM", "6-9AM", "9-12PM", "12-3PM", "3-6PM", "6-9PM", "9-12AM"]
 PRICE_RANGES = ["₹99-199", "₹199-299", "₹299-499", "₹499-699", "₹699-999", "₹999-1499"]
+
 
 # 🔥 50+ REAL HOOKUPS & KEYWORDS PER CATEGORY
 HOOKUPS_KEYWORDS = {
@@ -1111,6 +1114,7 @@ HOOKUPS_KEYWORDS = {
     ]
 }
 
+
 COMMON_INGREDIENTS = {
     "hair_growth": ["Biotin", "Redensyl", "Minoxidil", "Rosemary Oil", "Onion", "Rice Water", "Peptide", "Anagain", "Capixyl"],
     "hair_fall": ["Biotin", "Saw Palmetto", "Caffeine", "Argan Oil", "Amla", "Bhringraj", "Fenugreek"],
@@ -1119,9 +1123,12 @@ COMMON_INGREDIENTS = {
     "lip_care": ["Shea Butter", "Vitamin E", "Beeswax", "Coconut Oil", "Peppermint", "Mango Butter"]
 }
 
+
 MAJOR_CITIES = ["Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Pune", "Kanpur", "Lucknow", "Jaipur", "Ahmedabad"]
 
+
 st.set_page_config(page_title="🔍 AI Product Demand Analyzer v8.0", layout="wide", page_icon="🔍")
+
 
 # 🔥 ALL FUNCTIONS
 def ai_detect_categories(query):
@@ -1140,6 +1147,7 @@ def ai_detect_categories(query):
             categories.append(cat)
     return categories[:5] or ["general"]
 
+
 def fetch_search_data(query, api_key):
     """🔥 Real Google Search API"""
     params = {"engine": "google", "q": query, "gl": "in", "hl": "en", "num": 30, "api_key": api_key}
@@ -1148,6 +1156,7 @@ def fetch_search_data(query, api_key):
         return response.json() if response.status_code == 200 else {}
     except:
         return {}
+
 
 def generate_time_analysis(category):
     """🔥 1. TIME ANALYSIS - 50 Data Points"""
@@ -1174,6 +1183,7 @@ def generate_time_analysis(category):
     
     return sorted(time_data, key=lambda x: x['searches'], reverse=True)
 
+
 def generate_price_analysis(category):
     """🔥 2. PRICE ANALYSIS - 50 Data Points"""
     price_data = []
@@ -1195,6 +1205,7 @@ def generate_price_analysis(category):
         "avg_price": f"₹{avg_price}",
         "sweet_spot": max(price_data, key=lambda x: x['demand'])['price_range']
     }
+
 
 def generate_ingredient_analysis(category):
     """🔥 3. INGREDIENT ANALYSIS - 50 Data Points"""
@@ -1220,6 +1231,7 @@ def generate_ingredient_analysis(category):
         "leader": top_ing[0][0] if top_ing else "N/A"
     }
 
+
 def generate_hookups_keywords(category):
     """🔥 4. HOOKUPS & KEYWORDS - 50 Data Points"""
     base_keywords = HOOKUPS_KEYWORDS.get(category, [])
@@ -1243,6 +1255,7 @@ def generate_hookups_keywords(category):
     
     return sorted(hookups_data, key=lambda x: x['monthly_searches'], reverse=True)
 
+
 def compare_products(all_results):
     """🔥 5. PRODUCT COMPARISON"""
     comparison = []
@@ -1257,6 +1270,7 @@ def compare_products(all_results):
             "Demand Score": f"{random.randint(75, 98)}%"
         })
     return sorted(comparison, key=lambda x: int(x['Peak Searches'].replace(',', '')), reverse=True)
+
 
 def create_excel_report(all_results, query):
     """🔥 6. EXCEL EXPORT - 15+ Sheets"""
@@ -1288,9 +1302,11 @@ def create_excel_report(all_results, query):
     output.seek(0)
     return output.getvalue(), filename
 
+
 # 🔥 MAIN APP v8.0 - ALL FEATURES
 st.title("🔍 AI Product Demand Analyzer v8.0 - COMPLETE")
 st.markdown("***⏰ Time + 💰 Price + 🧪 Ingredients + 🔗 Hookups + ⚔️ Comparison + 📊 50 Data***")
+
 
 # 🔥 SIDEBAR
 st.sidebar.header("🔧 Product Analysis Setup")
@@ -1298,9 +1314,11 @@ query = st.sidebar.text_input("🔍 Enter Products:", value="hair growth serum f
 api_key = st.sidebar.text_input("🔑 SearchAPI Key:", type="password", value="DLKRiBr99vwaRJzHBZJUWnUJ")
 num_categories = st.sidebar.slider("📊 Categories", 1, 5, 3)
 
+
 categories = ai_detect_categories(query)[:num_categories]
 if categories:
     st.sidebar.success(f"🎯 **Detected**: {', '.join([c.replace('_', ' ').title() for c in categories])}")
+
 
 # 🔥 ANALYZE BUTTON
 if st.sidebar.button("🚀 GENERATE 1000+ DATA POINTS", type="primary"):
@@ -1400,10 +1418,12 @@ if st.sidebar.button("🚀 GENERATE 1000+ DATA POINTS", type="primary"):
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
 
+
 # 🔥 FEATURES EXPANDER
 with st.expander("📋 ALL v8.0 FEATURES - COMPLETE"):
     st.markdown("""
     **✅ 6 MAJOR FEATURES IMPLEMENTED:**
+
 
     **1. ⏰ TIME ANALYSIS** - 50 time slots + peak hours ⭐
     **2. 💰 PRICE INTELLIGENCE** - Avg price + 50 ranges + sweet spot
@@ -1423,8 +1443,10 @@ with st.expander("📋 ALL v8.0 FEATURES - COMPLETE"):
     ```
     """)
 
+
 st.markdown("---")
 st.markdown("*🤖 v8.0 COMPLETE | ✅ All 6 Features | 🚀 No Errors | 📊 1000+ Data Points Ready*")
+
 
 
 
