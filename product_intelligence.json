@@ -1,0 +1,410 @@
+{
+    "hair care": {
+      "shampoo": {
+        "ingredients": ["Aloe Vera", "Keratin", "Biotin", "Tea Tree Oil"],
+        "age_group_search": {
+          "18-24": 35,
+          "25-34": 45,
+          "35-44": 15,
+          "45+": 5
+        },
+        "top_hookups_keywords": ["anti dandruff shampoo", "hair fall solution", "sulfate free shampoo"],
+        "peak_times": ["7AM-9AM", "9PM-11PM"],
+        "top_search_time": "Sunday 9PM",
+        "price_analysis": {
+          "average_price": 349,
+          "min_price": 199,
+          "max_price": 799
+        },
+        "products": [
+          { "name": "WOW Onion Shampoo", "price": 349, "rank": 1 },
+          { "name": "Mamaearth Onion Shampoo", "price": 399, "rank": 2 }
+        ],
+        "city_demand": {
+          "Delhi": 78,
+          "Mumbai": 72,
+          "Bangalore": 69,
+          "Hyderabad": 55
+        }
+      },
+      "hair oil": {
+        "ingredients": ["Onion Oil", "Coconut Oil", "Castor Oil"],
+        "age_group_search": {
+          "18-24": 28,
+          "25-34": 50,
+          "35-44": 17,
+          "45+": 5
+        },
+        "top_hookups_keywords": ["hair regrowth oil", "onion hair oil"],
+        "peak_times": ["6AM-8AM", "10PM-12AM"],
+        "price_analysis": {
+          "average_price": 299,
+          "min_price": 150,
+          "max_price": 650
+        },
+        "city_demand": {
+          "Patna": 60,
+          "Lucknow": 58,
+          "Jaipur": 55
+        }
+      },
+      "hair serum": {
+        "ingredients": ["Redensyl", "Anagain", "Biotin", "Arginine"],
+        "age_group_search": {"18-24": 40, "25-34": 42, "35-44": 13, "45+": 5},
+        "top_hookups_keywords": ["hair growth serum", "anti hairfall serum"],
+        "peak_times": ["8AM-10AM", "10PM-12AM"],
+        "price_analysis": {"average_price": 599, "min_price": 299, "max_price": 999},
+        "city_demand": {"Delhi": 75, "Mumbai": 70, "Kanpur": 65}
+      },
+      "conditioner": {
+        "ingredients": ["Argan Oil", "Shea Butter", "Keratin", "Aloe Vera"],
+        "age_group_search": {"18-24": 32, "25-34": 48, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["hair conditioner", "damage repair conditioner"],
+        "peak_times": ["7AM-9AM", "9PM-11PM"],
+        "price_analysis": {"average_price": 399, "min_price": 199, "max_price": 699},
+        "city_demand": {"Bangalore": 68, "Pune": 62, "Chennai": 58}
+      },
+      "hair mask": {
+        "ingredients": ["Avocado Oil", "Honey", "Yogurt Extract", "Vitamin E"],
+        "age_group_search": {"18-24": 25, "25-34": 52, "35-44": 18, "45+": 5},
+        "top_hookups_keywords": ["hair spa mask", "deep conditioning mask"],
+        "peak_times": ["Saturday 8PM", "Sunday 10AM"],
+        "price_analysis": {"average_price": 499, "min_price": 249, "max_price": 899},
+        "city_demand": {"Lucknow": 60, "Jaipur": 55, "Patna": 52}
+      },
+      "hair growth oil": {
+        "ingredients": ["Rosemary Oil", "Bhringraj", "Redensyl", "Peppermint Oil"],
+        "age_group_search": {"18-24": 38, "25-34": 45, "35-44": 12, "45+": 5},
+        "top_hookups_keywords": ["hair growth oil", "baldness treatment oil"],
+        "peak_times": ["6AM-8AM", "11PM-1AM"],
+        "price_analysis": {"average_price": 699, "min_price": 399, "max_price": 1299},
+        "city_demand": {"Delhi": 82, "Kanpur": 70, "Noida": 65}
+      },
+      "anti dandruff shampoo": {
+        "ingredients": ["Ketoconazole", "Zinc Pyrithione", "Tea Tree Oil"],
+        "age_group_search": {"18-24": 30, "25-34": 50, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["dandruff shampoo", "anti dandruff treatment"],
+        "peak_times": ["7AM-9AM", "8PM-10PM"],
+        "price_analysis": {"average_price": 429, "min_price": 229, "max_price": 799},
+        "city_demand": {"Mumbai": 75, "Pune": 68, "Hyderabad": 60}
+      },
+      "hair color": {
+        "ingredients": ["Ammonia Free", "Argan Oil", "Henna Extract"],
+        "age_group_search": {"18-24": 20, "25-34": 40, "35-44": 25, "45+": 15},
+        "top_hookups_keywords": ["hair color at home", "natural hair dye"],
+        "peak_times": ["Saturday 2PM", "Sunday 11AM"],
+        "price_analysis": {"average_price": 299, "min_price": 149, "max_price": 599},
+        "city_demand": {"Delhi": 70, "Kolkata": 65, "Chennai": 60}
+      },
+      "leave in conditioner": {
+        "ingredients": ["Silicone Free", "Argan Oil", "Keratin"],
+        "age_group_search": {"18-24": 35, "25-34": 45, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["leave in conditioner", "heat protectant"],
+        "peak_times": ["8AM-10AM", "9PM-11PM"],
+        "price_analysis": {"average_price": 549, "min_price": 299, "max_price": 999},
+        "city_demand": {"Bangalore": 72, "Gurgaon": 68, "Noida": 62}
+      },
+      "hair spray": {
+        "ingredients": ["Hold Polymer", "Vitamin E", "Aloe Vera"],
+        "age_group_search": {"18-24": 60, "25-34": 30, "35-44": 8, "45+": 2},
+        "top_hookups_keywords": ["strong hold spray", "hair styling spray"],
+        "peak_times": ["6PM-9PM"],
+        "price_analysis": {"average_price": 399, "min_price": 199, "max_price": 799},
+        "city_demand": {"Mumbai": 78, "Delhi": 72, "Pune": 65}
+      }
+    },
+    "skin care": {
+      "face wash": {
+        "ingredients": ["Salicylic Acid", "Neem", "Vitamin C"],
+        "age_group_search": {
+          "18-24": 48,
+          "25-34": 38,
+          "35-44": 10,
+          "45+": 4
+        },
+        "top_hookups_keywords": ["acne face wash", "oil control face wash"],
+        "peak_times": ["8AM-10AM", "9PM-11PM"],
+        "price_analysis": {
+          "average_price": 249,
+          "min_price": 120,
+          "max_price": 550
+        },
+        "city_demand": {
+          "Delhi": 80,
+          "Pune": 65,
+          "Chennai": 60
+        }
+      },
+      "face serum": {
+        "ingredients": ["Vitamin C", "Niacinamide", "Hyaluronic Acid", "Retinol"],
+        "age_group_search": {"18-24": 45, "25-34": 40, "35-44": 12, "45+": 3},
+        "top_hookups_keywords": ["vitamin c serum", "anti aging serum"],
+        "peak_times": ["8AM-10AM", "10PM-12AM"],
+        "price_analysis": {"average_price": 699, "min_price": 399, "max_price": 1499},
+        "city_demand": {"Mumbai": 82, "Bangalore": 75, "Delhi": 70}
+      },
+      "moisturizer": {
+        "ingredients": ["Hyaluronic Acid", "Ceramides", "Niacinamide", "Shea Butter"],
+        "age_group_search": {"18-24": 35, "25-34": 45, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["gel moisturizer", "lightweight moisturizer"],
+        "peak_times": ["7AM-9AM", "9PM-11PM"],
+        "price_analysis": {"average_price": 449, "min_price": 249, "max_price": 899},
+        "city_demand": {"Delhi": 78, "Hyderabad": 65, "Pune": 62}
+      },
+      "sunscreen": {
+        "ingredients": ["Zinc Oxide", "Titanium Dioxide", "Vitamin E", "Hyaluronic Acid"],
+        "age_group_search": {"18-24": 50, "25-34": 35, "35-44": 12, "45+": 3},
+        "top_hookups_keywords": ["no white cast sunscreen", "spf 50 sunscreen"],
+        "peak_times": ["7AM-9AM", "12PM-2PM"],
+        "price_analysis": {"average_price": 599, "min_price": 299, "max_price": 1299},
+        "city_demand": {"Bangalore": 85, "Mumbai": 80, "Chennai": 75}
+      },
+      "face cream": {
+        "ingredients": ["Retinol", "Peptides", "Ceramides", "Niacinamide"],
+        "age_group_search": {"18-24": 25, "25-34": 40, "35-44": 25, "45+": 10},
+        "top_hookups_keywords": ["anti aging cream", "night cream"],
+        "peak_times": ["9PM-11PM"],
+        "price_analysis": {"average_price": 799, "min_price": 499, "max_price": 1999},
+        "city_demand": {"Delhi": 75, "Kolkata": 68, "Lucknow": 60}
+      },
+      "toner": {
+        "ingredients": ["Witch Hazel", "Rose Water", "Niacinamide", "Aloe Vera"],
+        "age_group_search": {"18-24": 42, "25-34": 38, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["face toner", "pore minimizing toner"],
+        "peak_times": ["8AM-10AM", "9PM-11PM"],
+        "price_analysis": {"average_price": 399, "min_price": 199, "max_price": 899},
+        "city_demand": {"Pune": 70, "Bangalore": 68, "Jaipur": 62}
+      },
+      "face scrub": {
+        "ingredients": ["Walnut Shell", "Charcoal", "AHA BHA", "Tea Tree Oil"],
+        "age_group_search": {"18-24": 55, "25-34": 35, "35-44": 8, "45+": 2},
+        "top_hookups_keywords": ["blackhead scrub", "deep cleansing scrub"],
+        "peak_times": ["Saturday 10AM", "Sunday 8PM"],
+        "price_analysis": {"average_price": 299, "min_price": 149, "max_price": 599},
+        "city_demand": {"Mumbai": 72, "Delhi": 68, "Hyderabad": 60}
+      },
+      "under eye cream": {
+        "ingredients": ["Caffeine", "Hyaluronic Acid", "Vitamin C", "Peptides"],
+        "age_group_search": {"18-24": 30, "25-34": 45, "35-44": 20, "45+": 5},
+        "top_hookups_keywords": ["dark circle cream", "puffy eyes cream"],
+        "peak_times": ["8AM-10AM", "10PM-12AM"],
+        "price_analysis": {"average_price": 649, "min_price": 399, "max_price": 1299},
+        "city_demand": {"Delhi": 78, "Gurgaon": 72, "Noida": 65}
+      },
+      "body lotion": {
+        "ingredients": ["Shea Butter", "Coconut Oil", "Vitamin E", "Aloe Vera"],
+        "age_group_search": {"18-24": 40, "25-34": 40, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["body butter", "dry skin lotion"],
+        "peak_times": ["7AM-9AM", "9PM-11PM"],
+        "price_analysis": {"average_price": 349, "min_price": 199, "max_price": 699},
+        "city_demand": {"Chennai": 70, "Kolkata": 65, "Surat": 60}
+      },
+      "cleansing milk": {
+        "ingredients": ["Micellar Water", "Chamomile", "Rose Extract"],
+        "age_group_search": {"18-24": 35, "25-34": 45, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["micellar water", "makeup remover"],
+        "peak_times": ["9PM-11PM"],
+        "price_analysis": {"average_price": 449, "min_price": 249, "max_price": 899},
+        "city_demand": {"Mumbai": 75, "Pune": 68, "Bangalore": 62}
+      }
+    },
+    "cosmetics": {
+      "lipstick": {
+        "ingredients": ["Shea Butter", "Vitamin E", "Beeswax"],
+        "age_group_search": {
+          "18-24": 55,
+          "25-34": 30,
+          "35-44": 10,
+          "45+": 5
+        },
+        "top_hookups_keywords": ["matte lipstick", "long lasting lipstick"],
+        "peak_times": ["6PM-9PM"],
+        "price_analysis": {
+          "average_price": 599,
+          "min_price": 299,
+          "max_price": 1299
+        },
+        "city_demand": {
+          "Mumbai": 75,
+          "Delhi": 70,
+          "Kolkata": 50
+        }
+      },
+      "lip balm": {
+        "ingredients": ["Beeswax", "Coconut Oil", "Vitamin E", "Shea Butter"],
+        "age_group_search": {"18-24": 60, "25-34": 28, "35-44": 8, "45+": 4},
+        "top_hookups_keywords": ["lip balm dry lips", "tinted lip balm"],
+        "peak_times": ["7AM-9AM", "9PM-11PM"],
+        "price_analysis": {"average_price": 249, "min_price": 99, "max_price": 499},
+        "city_demand": {"Delhi": 78, "Mumbai": 72, "Kanpur": 65}
+      },
+      "foundation": {
+        "ingredients": ["Hyaluronic Acid", "Vitamin C", "Niacinamide"],
+        "age_group_search": {"18-24": 50, "25-34": 35, "35-44": 12, "45+": 3},
+        "top_hookups_keywords": ["full coverage foundation", "dewy foundation"],
+        "peak_times": ["5PM-8PM"],
+        "price_analysis": {"average_price": 899, "min_price": 499, "max_price": 1999},
+        "city_demand": {"Mumbai": 82, "Delhi": 78, "Bangalore": 70}
+      },
+      "mascara": {
+        "ingredients": ["Beeswax", "Vitamin E", "Iron Oxides"],
+        "age_group_search": {"18-24": 65, "25-34": 25, "35-44": 8, "45+": 2},
+        "top_hookups_keywords": ["waterproof mascara", "volume mascara"],
+        "peak_times": ["6PM-9PM"],
+        "price_analysis": {"average_price": 599, "min_price": 299, "max_price": 1299},
+        "city_demand": {"Delhi": 75, "Pune": 68, "Chennai": 62}
+      },
+      "eyeliner": {
+        "ingredients": ["Carbon Black", "Jojoba Oil", "Vitamin E"],
+        "age_group_search": {"18-24": 70, "25-34": 22, "35-44": 6, "45+": 2},
+        "top_hookups_keywords": ["liquid eyeliner", "winged eyeliner"],
+        "peak_times": ["5PM-8PM"],
+        "price_analysis": {"average_price": 399, "min_price": 199, "max_price": 899},
+        "city_demand": {"Mumbai": 78, "Bangalore": 72, "Hyderabad": 65}
+      },
+      "compact powder": {
+        "ingredients": ["Talc Free", "Niacinamide", "Hyaluronic Acid"],
+        "age_group_search": {"18-24": 45, "25-34": 40, "35-44": 12, "45+": 3},
+        "top_hookups_keywords": ["compact powder", "setting powder"],
+        "peak_times": ["4PM-7PM"],
+        "price_analysis": {"average_price": 499, "min_price": 249, "max_price": 999},
+        "city_demand": {"Delhi": 75, "Kolkata": 68, "Jaipur": 60}
+      },
+      "blush": {
+        "ingredients": ["Mica", "Jojoba Oil", "Vitamin E"],
+        "age_group_search": {"18-24": 68, "25-34": 25, "35-44": 5, "45+": 2},
+        "top_hookups_keywords": ["cream blush", "powder blush"],
+        "peak_times": ["6PM-9PM"],
+        "price_analysis": {"average_price": 449, "min_price": 199, "max_price": 899},
+        "city_demand": {"Mumbai": 80, "Pune": 72, "Chennai": 65}
+      },
+      "highlighter": {
+        "ingredients": ["Mica Pearls", "Squalane", "Vitamin E"],
+        "age_group_search": {"18-24": 72, "25-34": 22, "35-44": 4, "45+": 2},
+        "top_hookups_keywords": ["liquid highlighter", "glow highlighter"],
+        "peak_times": ["7PM-10PM"],
+        "price_analysis": {"average_price": 599, "min_price": 299, "max_price": 1299},
+        "city_demand": {"Delhi": 78, "Bangalore": 70, "Gurgaon": 65}
+      },
+      "eyeshadow palette": {
+        "ingredients": ["Mica", "Talc Free", "Jojoba Oil"],
+        "age_group_search": {"18-24": 75, "25-34": 20, "35-44": 4, "45+": 1},
+        "top_hookups_keywords": ["eyeshadow palette", "nude palette"],
+        "peak_times": ["Saturday 6PM"],
+        "price_analysis": {"average_price": 999, "min_price": 499, "max_price": 2999},
+        "city_demand": {"Mumbai": 85, "Delhi": 80, "Pune": 72}
+      },
+      "kajal": {
+        "ingredients": ["Kajal Wax", "Almond Oil", "Vitamin E"],
+        "age_group_search": {"18-24": 62, "25-34": 28, "35-44": 8, "45+": 2},
+        "top_hookups_keywords": ["kajal pencil", "smudge proof kajal"],
+        "peak_times": ["7AM-9AM", "6PM-8PM"],
+        "price_analysis": {"average_price": 299, "min_price": 149, "max_price": 599},
+        "city_demand": {"Delhi": 82, "Kanpur": 75, "Lucknow": 68}
+      }
+    },
+    "wellness product": {
+      "protein powder": {
+        "ingredients": ["Whey Protein", "BCAA", "Digestive Enzymes"],
+        "age_group_search": {
+          "18-24": 40,
+          "25-34": 45,
+          "35-44": 10,
+          "45+": 5
+        },
+        "top_hookups_keywords": ["muscle gain protein", "gym protein powder"],
+        "peak_times": ["5AM-7AM", "7PM-10PM"],
+        "price_analysis": {
+          "average_price": 1799,
+          "min_price": 999,
+          "max_price": 3499
+        },
+        "city_demand": {
+          "Bangalore": 70,
+          "Delhi": 65,
+          "Chandigarh": 55
+        }
+      },
+      "multivitamin": {
+        "ingredients": ["Vitamin D3", "B12", "Zinc", "Ginseng"],
+        "age_group_search": {"18-24": 35, "25-34": 45, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["daily multivitamin", "immunity booster"],
+        "peak_times": ["7AM-9AM", "9PM-11PM"],
+        "price_analysis": {"average_price": 799, "min_price": 499, "max_price": 1499},
+        "city_demand": {"Delhi": 75, "Mumbai": 70, "Pune": 65}
+      },
+      "fish oil": {
+        "ingredients": ["Omega 3", "DHA", "EPA", "Vitamin E"],
+        "age_group_search": {"18-24": 25, "25-34": 50, "35-44": 20, "45+": 5},
+        "top_hookups_keywords": ["omega 3 supplement", "heart health oil"],
+        "peak_times": ["8AM-10AM"],
+        "price_analysis": {"average_price": 999, "min_price": 599, "max_price": 1999},
+        "city_demand": {"Bangalore": 72, "Hyderabad": 68, "Chennai": 62}
+      },
+      "pre workout": {
+        "ingredients": ["Caffeine", "Beta Alanine", "Creatine", "BCAA"],
+        "age_group_search": {"18-24": 60, "25-34": 35, "35-44": 5, "45+": 0},
+        "top_hookups_keywords": ["pre workout powder", "gym energy boost"],
+        "peak_times": ["5AM-7AM", "6PM-8PM"],
+        "price_analysis": {"average_price": 1299, "min_price": 799, "max_price": 2499},
+        "city_demand": {"Delhi": 78, "Bangalore": 75, "Mumbai": 70}
+      },
+      "bcmaa": {
+        "ingredients": ["Leucine", "Isoleucine", "Valine", "Electrolytes"],
+        "age_group_search": {"18-24": 55, "25-34": 40, "35-44": 5, "45+": 0},
+        "top_hookups_keywords": ["intra workout bcaa", "recovery bcaa"],
+        "peak_times": ["6AM-8AM", "7PM-9PM"],
+        "price_analysis": {"average_price": 899, "min_price": 499, "max_price": 1799},
+        "city_demand": {"Pune": 70, "Gurgaon": 68, "Noida": 62}
+      },
+      "collagen powder": {
+        "ingredients": ["Hydrolyzed Collagen", "Vitamin C", "Hyaluronic Acid"],
+        "age_group_search": {"18-24": 20, "25-34": 45, "35-44": 25, "45+": 10},
+        "top_hookups_keywords": ["skin collagen", "joint health collagen"],
+        "peak_times": ["8AM-10AM", "10PM-12AM"],
+        "price_analysis": {"average_price": 1499, "min_price": 999, "max_price": 2999},
+        "city_demand": {"Mumbai": 75, "Delhi": 70, "Chandigarh": 65}
+      },
+      "ashwagandha": {
+        "ingredients": ["Ashwagandha Root", "Black Pepper", "Ginseng"],
+        "age_group_search": {"18-24": 30, "25-34": 50, "35-44": 15, "45+": 5},
+        "top_hookups_keywords": ["stress relief ashwagandha", "sleep aid"],
+        "peak_times": ["9PM-11PM"],
+        "price_analysis": {"average_price": 599, "min_price": 349, "max_price": 1199},
+        "city_demand": {"Delhi": 72, "Lucknow": 68, "Kanpur": 60}
+      },
+      "magnesium": {
+        "ingredients": ["Magnesium Glycinate", "Vitamin D3", "Zinc"],
+        "age_group_search": {"18-24": 25, "25-34": 45, "35-44": 20, "45+": 10},
+        "top_hookups_keywords": ["magnesium sleep", "muscle recovery"],
+        "peak_times": ["10PM-12AM"],
+        "price_analysis": {"average_price": 699, "min_price": 399, "max_price": 1399},
+        "city_demand": {"Bangalore": 70, "Pune": 65, "Hyderabad": 60}
+      },
+      "vitamin d3": {
+        "ingredients": ["Vitamin D3 5000IU", "K2", "MCT Oil"],
+        "age_group_search": {"18-24": 35, "25-34": 40, "35-44": 20, "45+": 5},
+        "top_hookups_keywords": ["vitamin d deficiency", "bone health"],
+        "peak_times": ["8AM-10AM"],
+        "price_analysis": {"average_price": 499, "min_price": 299, "max_price": 999},
+        "city_demand": {"Delhi": 78, "Chandigarh": 72, "Gurgaon": 68}
+      },
+      "l carnitine": {
+        "ingredients": ["L-Carnitine Tartrate", "Chromium", "Green Tea Extract"],
+        "age_group_search": {"18-24": 45, "25-34": 45, "35-44": 8, "45+": 2},
+        "top_hookups_keywords": ["fat burner l carnitine", "weight loss"],
+        "peak_times": ["6AM-8AM", "7PM-9PM"],
+        "price_analysis": {"average_price": 799, "min_price": 499, "max_price": 1599},
+        "city_demand": {"Mumbai": 75, "Bangalore": 70, "Pune": 65}
+      },
+      "creatine": {
+        "ingredients": ["Creatine Monohydrate", "Micronized", "No Fillers"],
+        "age_group_search": {"18-24": 65, "25-34": 30, "35-44": 5, "45+": 0},
+        "top_hookups_keywords": ["creatine 5g", "muscle strength creatine"],
+        "peak_times": ["5AM-7AM", "6PM-8PM"],
+        "price_analysis": {"average_price": 999, "min_price": 599, "max_price": 1999},
+        "city_demand": {"Delhi": 82, "Bangalore": 78, "Mumbai": 72}
+      }
+    }
+  }
+  
