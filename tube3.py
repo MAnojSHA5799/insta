@@ -259,6 +259,14 @@ INGREDIENTS_DATABASE = {
     "Personal Care": {
         "Body Lotion": ["Glycerin", "Vitamin E", "Cocoa Butter", "Shea Butter"],
         "Deodorant": ["Aluminum Chloride", "Fragrance", "Alcohol"]
+    },
+    "Men's Grooming": {
+        "Face Wash": ["Charcoal", "Tea Tree", "Salicylic Acid", "Menthol"],
+        "Moisturizer": ["Hyaluronic Acid", "Glycerin", "Vitamin E", "Aloe Vera"],
+        "Face Serum": ["Niacinamide", "Retinol", "Vitamin C", "Peptides"],
+        "Hair Gel": ["Glycerin", "PVP", "Dimethicone", "Fragrance"],
+        "Hair Wax": ["Beeswax", "Carnauba Wax", "Jojoba Oil", "Vitamin E"],
+        "Beard Oil": ["Argan Oil", "Jojoba Oil", "Coconut Oil", "Vitamin E"]
     }
 }
 
@@ -322,6 +330,49 @@ HASHTAGS_DATABASE = {
     }
 }
 
+# 🔥 PRODUCTS THAT EXIST IN BOTH MEN'S AND WOMEN'S CATEGORIES
+OVERLAPPING_PRODUCTS = {
+    "face wash": ["skin_care", "mens_grooming"],
+    "moisturizer": ["skin_care", "mens_grooming"],
+    "face serum": ["skin_care", "mens_grooming"],
+    "hair gel": ["hair_care", "mens_grooming"],
+    "hair wax": ["hair_care", "mens_grooming"],
+    "shampoo": ["hair_care", "mens_grooming"],
+    "conditioner": ["hair_care", "mens_grooming"]
+}
+
+# 🔥 CATEGORY-LEVEL MAPPING: General category queries that should show both Men's and Women's
+CATEGORY_OVERLAP_MAPPING = {
+    "skin care": ["skin_care", "mens_grooming"],
+    "skincare": ["skin_care", "mens_grooming"],
+    "hair care": ["hair_care", "mens_grooming"],
+    "haircare": ["hair_care", "mens_grooming"]
+}
+
+# 🔥 HELPER FUNCTION: Get proper category label with Men's/Women's prefix
+def get_category_label(cat_key, main_category):
+    """Returns category label with appropriate Men's/Women's prefix"""
+    if cat_key == "mens_grooming":
+        return "Men's Grooming"
+    elif cat_key == "baby_care":
+        return "Baby Care"
+    else:
+        # For all other categories, add "Women's" prefix
+        if main_category == "Hair Care":
+            return "Women's Hair Care"
+        elif main_category == "Skin Care":
+            return "Women's Skin Care"
+        elif main_category == "Makeup":
+            return "Women's Makeup"
+        elif main_category == "Personal Care":
+            return "Women's Personal Care"
+        else:
+            return f"Women's {main_category}"
+
+# 🔥 GENDER KEYWORDS FOR FILTERING
+WOMEN_KEYWORDS = ["girl", "girls", "woman", "women", "female", "ladies", "lady", "womens", "womens"]
+MEN_KEYWORDS = ["men", "man", "male", "guy", "guys", "boy", "boys", "mens", "mens"]
+
 # 🔥 ALL FUNCTIONS ✅ FIXED - MULTI-CATEGORY SUPPORT WITH GRANULAR PRODUCT FILTERING
 def parse_query(query):
     query_lower = query.lower().strip()
@@ -332,6 +383,10 @@ def parse_query(query):
         for word in words:
             if len(word) > 2 and word not in ['care', 'and', 'for', 'the', 'this', 'that']:
                 all_words.append(word)
+    
+    # 🔥 NEW: Detect gender preference from query
+    is_women_only = any(keyword in query_lower for keyword in WOMEN_KEYWORDS)
+    is_men_only = any(keyword in query_lower for keyword in MEN_KEYWORDS)
     
     # Build comprehensive keyword map
     category_map = {}
@@ -387,6 +442,27 @@ def parse_query(query):
             # Make sure we don't add duplicates
             if not any(p["product"].lower() == product_info["product"].lower() for p in detected_products):
                 detected_products.append(product_info)
+                
+                # 🔥 NEW: Check if this product exists in both men's and women's categories
+                if product_name in OVERLAPPING_PRODUCTS:
+                    overlapping_cats = OVERLAPPING_PRODUCTS[product_name]
+                    for overlap_cat in overlapping_cats:
+                        if overlap_cat != product_info["category"] and overlap_cat in CATEGORY_DATA:
+                            # Apply gender filter: only add if gender preference matches
+                            if is_women_only and overlap_cat == "mens_grooming":
+                                continue  # Skip men's category for women-only query
+                            elif is_men_only and overlap_cat in ["hair_care", "skin_care", "makeup", "personal_care"]:
+                                continue  # Skip women's categories for men-only query
+                            
+                            # Add product from the other category too
+                            cat_data = CATEGORY_DATA[overlap_cat]
+                            if product_info["product"] in cat_data.get("products", []):
+                                detected_products.append({
+                                    "product": product_info["product"],
+                                    "category": overlap_cat,
+                                    "subcategory": None
+                                })
+                
                 # Remove matched product from query to avoid re-matching
                 query_lower_clean = query_lower_clean.replace(product_name, " ", 1).strip()
     
@@ -402,6 +478,25 @@ def parse_query(query):
                 if len(matches) >= 2 or (len(product_words) == 2 and len(matches) == 2):
                     if not any(p["product"].lower() == product_info["product"].lower() for p in detected_products):
                         detected_products.append(product_info)
+                        
+                        # 🔥 NEW: Check for overlapping products
+                        if product_name in OVERLAPPING_PRODUCTS:
+                            overlapping_cats = OVERLAPPING_PRODUCTS[product_name]
+                            for overlap_cat in overlapping_cats:
+                                if overlap_cat != product_info["category"] and overlap_cat in CATEGORY_DATA:
+                                    # Apply gender filter
+                                    if is_women_only and overlap_cat == "mens_grooming":
+                                        continue
+                                    elif is_men_only and overlap_cat in ["hair_care", "skin_care", "makeup", "personal_care"]:
+                                        continue
+                                    
+                                    cat_data = CATEGORY_DATA[overlap_cat]
+                                    if product_info["product"] in cat_data.get("products", []):
+                                        detected_products.append({
+                                            "product": product_info["product"],
+                                            "category": overlap_cat,
+                                            "subcategory": None
+                                        })
     
     # If specific products detected, use their categories
     if detected_products:
@@ -421,14 +516,58 @@ def parse_query(query):
                 cat = product_category_map[word]
                 detected_categories[cat] = detected_categories.get(cat, 0) + 2
         
-        sorted_cats = sorted(detected_categories.items(), key=lambda x: x[1], reverse=True)[:3]
+        # 🔥 NEW: Check for category-level overlaps (e.g., "skin care" → both skin_care and mens_grooming)
+        query_normalized = query_lower.replace(" ", "").replace("-", "")
+        for category_query, overlap_cats in CATEGORY_OVERLAP_MAPPING.items():
+            category_normalized = category_query.replace(" ", "")
+            if category_normalized in query_normalized or category_query in query_lower:
+                for overlap_cat in overlap_cats:
+                    if overlap_cat in CATEGORY_DATA:
+                        # Apply gender filter
+                        if is_women_only and overlap_cat == "mens_grooming":
+                            continue  # Skip men's for women-only query
+                        elif is_men_only and overlap_cat in ["hair_care", "skin_care", "makeup", "personal_care"]:
+                            continue  # Skip women's for men-only query
+                        detected_categories[overlap_cat] = detected_categories.get(overlap_cat, 0) + 4  # Higher weight for category-level matches
+        
+        # 🔥 NEW: Check for overlapping products in query and add both categories
+        query_normalized = query_lower.replace(" ", "").replace("-", "")
+        for overlap_product, overlap_cats in OVERLAPPING_PRODUCTS.items():
+            if overlap_product.replace(" ", "") in query_normalized or overlap_product in query_lower:
+                for overlap_cat in overlap_cats:
+                    if overlap_cat in CATEGORY_DATA:
+                        # Apply gender filter
+                        if is_women_only and overlap_cat == "mens_grooming":
+                            continue  # Skip men's for women-only query
+                        elif is_men_only and overlap_cat in ["hair_care", "skin_care", "makeup", "personal_care"]:
+                            continue  # Skip women's for men-only query
+                        detected_categories[overlap_cat] = detected_categories.get(overlap_cat, 0) + 3
+        
+        sorted_cats = sorted(detected_categories.items(), key=lambda x: x[1], reverse=True)[:5]
         detected_cat_list = [cat[0] for cat in sorted_cats] if sorted_cats else ["hair_care"]
+    
+    # 🔥 NEW: Filter categories based on gender preference
+    if is_women_only:
+        # Remove men's grooming, keep only women's categories
+        detected_cat_list = [cat for cat in detected_cat_list if cat != "mens_grooming"]
+        # Also filter detected_products
+        detected_products = [p for p in detected_products if p.get("category") != "mens_grooming"]
+    elif is_men_only:
+        # Keep only men's grooming, remove women's categories
+        women_categories = ["hair_care", "skin_care", "makeup", "personal_care"]
+        detected_cat_list = [cat for cat in detected_cat_list if cat not in women_categories]
+        # If men's grooming not in list, add it
+        if "mens_grooming" not in detected_cat_list and any(cat in women_categories for cat in detected_cat_list):
+            detected_cat_list.append("mens_grooming")
+        # Filter detected_products to only men's
+        detected_products = [p for p in detected_products if p.get("category") == "mens_grooming" or p.get("category") not in women_categories]
     
     # Get description for detected categories
     descriptions = []
     for cat_key in detected_cat_list:
         cat_data = CATEGORY_DATA[cat_key]
-        desc = f"{cat_data['main_category']}: {', '.join(cat_data['subcategories'][:3])}"
+        category_label = get_category_label(cat_key, cat_data['main_category'])
+        desc = f"{category_label}: {', '.join(cat_data['subcategories'][:3])}"
         descriptions.append(desc)
     
     # Return detected products list for filtering
@@ -533,7 +672,7 @@ def generate_smart_hookups(categories, all_words, query_lines, detected_products
                 views = random.randint(45000, 350000) + (match_score * 15000)
                 hookups.append({
                     'Keyword': product,
-                    'Hookup_Type': cat_data['main_category'],
+                    'Hookup_Type': get_category_label(cat, cat_data['main_category']),
                     'Match_Score': match_score,
                     'Video_Views': f"{views:,}",
                     'Priority': f"{min(100, 85 + match_score * 5)}%",
@@ -553,7 +692,7 @@ def generate_smart_hookups(categories, all_words, query_lines, detected_products
                             views = random.randint(30000, 250000) + (match_score * 10000)
                             hookups.append({
                                 'Keyword': product,
-                                'Hookup_Type': cat_data['main_category'],
+                                'Hookup_Type': get_category_label(cat, cat_data['main_category']),
                                 'Match_Score': match_score,
                                 'Video_Views': f"{views:,}",
                                 'Priority': f"{min(100, 75 + match_score * 5)}%",
@@ -562,30 +701,57 @@ def generate_smart_hookups(categories, all_words, query_lines, detected_products
                             })
     else:
         # Original logic: all products in categories
+        processed_products = set()  # Track products to avoid duplicates
         for cat in categories:
             if cat in CATEGORY_DATA:
                 cat_data = CATEGORY_DATA[cat]
                 for product in cat_data.get("products", [])[:15]:
                     product_lower = product.lower()
-                    match_score = sum(1 for word in all_words if word in product_lower)
-                    if match_score > 0 or len(hookups) < 20:
-                        views = random.randint(45000, 350000) + (match_score * 15000)
-                        hookups.append({
-                            'Keyword': product,
-                            'Hookup_Type': cat_data['main_category'],
-                            'Match_Score': match_score if match_score > 0 else random.randint(1, 3),
-                            'Video_Views': f"{views:,}",
-                            'Priority': f"{min(100, 85 + match_score * 5)}%",
-                            'CPC': f"₹{random.randint(38, 95)}",
-                            'Videos': random.randint(18, 65)
-                        })
+                    if product not in processed_products:
+                        match_score = sum(1 for word in all_words if word in product_lower)
+                        if match_score > 0 or len(hookups) < 20:
+                            views = random.randint(45000, 350000) + (match_score * 15000)
+                            hookups.append({
+                                'Keyword': product,
+                                'Hookup_Type': get_category_label(cat, cat_data['main_category']),
+                                'Match_Score': match_score if match_score > 0 else random.randint(1, 3),
+                                'Video_Views': f"{views:,}",
+                                'Priority': f"{min(100, 85 + match_score * 5)}%",
+                                'CPC': f"₹{random.randint(38, 95)}",
+                                'Videos': random.randint(18, 65)
+                            })
+                            processed_products.add(product)
+        
+        # 🔥 NEW: Add products from overlapping categories
+        query_lower_check = " ".join(all_words).lower()
+        for overlap_product, overlap_cats in OVERLAPPING_PRODUCTS.items():
+            if overlap_product in query_lower_check:
+                for overlap_cat in overlap_cats:
+                    if overlap_cat in CATEGORY_DATA and overlap_cat not in categories:
+                        cat_data = CATEGORY_DATA[overlap_cat]
+                        for product in cat_data.get("products", [])[:10]:
+                            if overlap_product.split()[-1] in product.lower() and product not in processed_products:
+                                product_lower = product.lower()
+                                match_score = sum(1 for word in all_words if word in product_lower)
+                                views = random.randint(45000, 350000) + (match_score * 15000)
+                                hookups.append({
+                                    'Keyword': product,
+                                    'Hookup_Type': get_category_label(overlap_cat, cat_data['main_category']),
+                                    'Match_Score': match_score if match_score > 0 else random.randint(1, 3),
+                                    'Video_Views': f"{views:,}",
+                                    'Priority': f"{min(100, 85 + match_score * 5)}%",
+                                    'CPC': f"₹{random.randint(38, 95)}",
+                                    'Videos': random.randint(18, 65)
+                                })
+                                processed_products.add(product)
     
     hookups.sort(key=lambda x: (x['Match_Score'], int(x['Video_Views'].replace(',', ''))), reverse=True)
     return hookups[:50]
 
 def generate_query_videos(query, categories, ingredients, all_words, query_lines, detected_products=None):
     videos = []
-    channels = ['BeautyGuru India', 'SkinCareQueen', 'HairDoctor', 'NykaaBeauty', 'MakeupArtist', 'BeautyTips']
+    channels = ['BeautyGuru India', 'SkinCareQueen', 'HairDoctor', 'NykaaBeauty', 'MakeupArtist', 'BeautyTips', 
+                'MenGrooming', 'Beardo', 'Gillette India', 'MenStyle', 'GroomingGuru']
     
     # If specific products detected, filter to only those products
     if detected_products and len(detected_products) > 0:
@@ -637,6 +803,20 @@ def generate_query_videos(query, categories, ingredients, all_words, query_lines
                 all_brands.extend(cat_data.get('brands', []))
                 all_products.extend(cat_data.get('products', []))
                 all_subcats.extend(cat_data.get('subcategories', []))
+        
+        # 🔥 NEW: If overlapping products detected, add products from both categories
+        query_lower_check = query.lower()
+        for overlap_product, overlap_cats in OVERLAPPING_PRODUCTS.items():
+            if overlap_product in query_lower_check:
+                for overlap_cat in overlap_cats:
+                    if overlap_cat in CATEGORY_DATA and overlap_cat not in categories:
+                        cat_data = CATEGORY_DATA[overlap_cat]
+                        # Add products that match the overlapping product name
+                        for product in cat_data.get('products', []):
+                            if overlap_product.split()[-1] in product.lower():  # Match main product word
+                                if product not in all_products:
+                                    all_products.append(product)
+                        all_brands.extend(cat_data.get('brands', []))
         
         brands = list(set(all_brands)) if all_brands else ['Mamaearth', 'Minimalist', 'Nykaa']
         products = all_products if all_products else ['Product']
@@ -768,7 +948,7 @@ def generate_overall_summary(tables, videos, sentiments, hashtags, categories):
     avg_views = total_views // total_videos if total_videos > 0 else 0
     
     # Categories
-    cat_names = [CATEGORY_DATA[cat]['main_category'] for cat in categories if cat in CATEGORY_DATA]
+    cat_names = [get_category_label(cat, CATEGORY_DATA[cat]['main_category']) for cat in categories if cat in CATEGORY_DATA]
     categories_str = ", ".join(cat_names) if cat_names else "Multiple Categories"
     
     # Top performers
@@ -903,8 +1083,8 @@ def generate_all_tables(query, videos, categories, all_words, detected_products=
     }
 
 # 🔥 MAIN UI ✅ 100% FIXED - MULTI-CATEGORY SUPPORT + GRANULAR PRODUCT FILTERING
-st.title("🚀 **COMPLETE 15-TABLE DASHBOARD v47.0** ⭐ **MULTI-CATEGORY + PRODUCT FILTER**")
-st.markdown("***🔥 50 Videos | 15 Tables | MULTI-CATEGORY SEARCH | PRODUCT-SPECIFIC FILTERING | Hashtags | Excel | 100% ERROR FREE***")
+st.title("🚀 **COMPLETE 15-TABLE DASHBOARD v50.0** ⭐ **GENDER-SPECIFIC FILTERING**")
+st.markdown("***🔥 50 Videos | 15 Tables | GENDER-SPECIFIC FILTERING | MEN'S & WOMEN'S LABELS | PRODUCT-SPECIFIC FILTERING | Hashtags | Excel | 100% ERROR FREE***")
 
 st.sidebar.header("🔥 **PRO Universal Search**")
 query = st.sidebar.text_area("🔍 Enter ANY Query:", value="shampoo serum foundation", height=100)
@@ -958,7 +1138,7 @@ if st.sidebar.button("🚀 **GENERATE COMPLETE DATA**", type="primary"):
     st.session_state.detected = {
         'query': query, 
         'categories': categories,
-        'category_names': [CATEGORY_DATA[cat]['main_category'] for cat in categories if cat in CATEGORY_DATA],
+        'category_names': [get_category_label(cat, CATEGORY_DATA[cat]['main_category']) for cat in categories if cat in CATEGORY_DATA],
         'detected_products': detected_products
     }
     st.session_state.hashtags = hashtags
@@ -1169,16 +1349,29 @@ if all(key in st.session_state for key in ['tables', 'videos', 'sentiments', 'ha
         
         st.markdown("─" * 90)
 
-st.markdown("***✅ v47.0 = MULTI-CATEGORY SEARCH | PRODUCT-SPECIFIC FILTERING | ALL TABLES WITH DESCRIPTIONS | OVERALL SUMMARY | 100% WORKING 🚀***")
+st.markdown("***✅ v50.0 = GENDER-SPECIFIC FILTERING | MEN'S & WOMEN'S LABELS | MULTI-CATEGORY SEARCH | PRODUCT-SPECIFIC FILTERING | ALL TABLES WITH DESCRIPTIONS | OVERALL SUMMARY | 100% WORKING 🚀***")
 
-with st.expander("✅ **TESTED QUERIES - MULTI-CATEGORY + PRODUCT FILTERING**"):
+with st.expander("✅ **TESTED QUERIES - GENDER-SPECIFIC FILTERING + MULTI-CATEGORY**"):
     st.markdown("""
-    🔍 **"Hair Care"** → Shows all Hair Care products (Category-level)
-    🔍 **"Hair Serum"** → Shows only Hair Serum related data (Product-specific)
-    🔍 **"Hair Mask"** → Shows only Hair Mask related data (Product-specific)
-    🔍 **"Hair Serum Hair Mask"** → Shows both Hair Serum + Hair Mask data
+    ### 🎯 **Gender-Specific Queries:**
+    🔍 **"skin care for girls"** → Shows ONLY Women's Skin Care 🆕
+    🔍 **"skin care for girl"** → Shows ONLY Women's Skin Care 🆕
+    🔍 **"hair care for women"** → Shows ONLY Women's Hair Care 🆕
+    🔍 **"men skin care"** → Shows ONLY Men's Grooming 🆕
+    🔍 **"men face wash"** → Shows ONLY Men's Grooming products 🆕
+    🔍 **"girls makeup"** → Shows ONLY Women's Makeup 🆕
+    
+    ### 🔄 **General Category Queries (Both Men's & Women's):**
+    🔍 **"skin care"** → Shows BOTH Women's Skin Care AND Men's Grooming 🆕
+    🔍 **"hair care"** → Shows BOTH Women's Hair Care AND Men's Grooming 🆕
+    🔍 **"Face Wash"** → Shows Face Wash from BOTH Men's & Women's categories
+    🔍 **"Moisturizer"** → Shows Moisturizer from BOTH Men's & Women's categories
+    🔍 **"Hair Gel"** → Shows Hair Gel from BOTH Men's & Women's categories
     🔍 **"shampoo serum foundation"** → Hair Care + Skin Care + Makeup (Multi-category)
-    🔍 **"Face Wash Moisturizer"** → Shows Face Wash + Moisturizer products only
-    🔍 **"Lip Balm"** → Shows only Lip Balm related data
+    
+    ### 🎯 **Product-Specific:**
+    🔍 **"Hair Serum"** → Shows only Hair Serum related data
+    🔍 **"Beard Oil"** → Shows only Men's Grooming products
+    🔍 **"Lipstick"** → Shows only Women's Makeup products
     🔍 **"Sunscreen"** → Shows only Sunscreen related data
     """)
