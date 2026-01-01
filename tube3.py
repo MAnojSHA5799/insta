@@ -73,6 +73,7 @@ NEW_CATEGORY_JSON = {
                 "Amla Products"
             ]
         },
+
         "Skin Care": {
             "Cleansing": [
                 "Face Wash",
@@ -115,6 +116,7 @@ NEW_CATEGORY_JSON = {
                 "Lip Mask"
             ]
         },
+
         "Makeup": {
             "Face Makeup": [
                 "Foundation",
@@ -149,6 +151,48 @@ NEW_CATEGORY_JSON = {
                 "Eyelash Curler"
             ]
         },
+
+        "Cosmetics": {
+            "Face Cosmetics": [
+                "Foundation",
+                "Compact Powder",
+                "Loose Powder",
+                "Concealer",
+                "Primer",
+                "Highlighter",
+                "Blush",
+                "Bronzer"
+            ],
+            "Eye Cosmetics": [
+                "Kajal",
+                "Eyeliner",
+                "Mascara",
+                "Eyeshadow Palette",
+                "Eyebrow Pencil",
+                "False Eyelashes"
+            ],
+            "Lip Cosmetics": [
+                "Lipstick",
+                "Liquid Lipstick",
+                "Lip Gloss",
+                "Lip Liner",
+                "Lip Tint",
+                "Lip Crayon"
+            ],
+            "Nail Cosmetics": [
+                "Nail Polish",
+                "Gel Nail Paint",
+                "Matte Nail Paint",
+                "Nail Art Kit",
+                "Nail Remover"
+            ],
+            "Makeup Kits": [
+                "Bridal Makeup Kit",
+                "Party Makeup Kit",
+                "Professional Makeup Kit"
+            ]
+        },
+
         "Personal Care": {
             "Bath & Body": [
                 "Soap",
@@ -181,6 +225,7 @@ NEW_CATEGORY_JSON = {
                 "Roll On"
             ]
         },
+
         "Men's Grooming": {
             "Beard Care": [
                 "Beard Oil",
@@ -203,6 +248,7 @@ NEW_CATEGORY_JSON = {
                 "Face Serum"
             ]
         },
+
         "Baby Care": {
             "Bathing": [
                 "Baby Shampoo",
@@ -221,6 +267,7 @@ NEW_CATEGORY_JSON = {
         }
     }
 }
+
 
 # 🔥 BRANDS DATABASE (Category-wise)
 BRANDS_DATABASE = {
