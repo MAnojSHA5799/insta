@@ -343,7 +343,7 @@ if st.sidebar.button("🚀 GENERATE 1000+ DATA POINTS", type="primary"):
             consolidated.extend(data['hookups_keywords'][:10])
             consolidated.extend(data['time_analysis'][:10])
         
-        cons_df = pd.DataFrame(sorted(consolidated, key=lambda x: x.get('monthly_searches', x.get('searches', 0)), reverse=True)[:10])
+        cons_df = pd.DataFrame(sorted(consolidated, key=lambda x: x.get('monthly_searches', x.get('searches', 0)), reverse=True)[:9])
         st.dataframe(cons_df, use_container_width=True, height=500)
         
         # 🔥 4. DOWNLOAD
