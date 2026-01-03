@@ -1,3 +1,4 @@
+
 import streamlit as st
 import requests
 import json
@@ -347,15 +348,15 @@ if st.sidebar.button("🚀 GENERATE 1000+ DATA POINTS", type="primary"):
         st.dataframe(cons_df, use_container_width=True, height=500)
         
         # 🔥 4. DOWNLOAD
-        st.markdown("---")
-        st.header("💾 6. DOWNLOAD REPORT")
-        excel_data, filename = create_excel_report(all_results, query)
-        st.download_button(
-            label=f"📥 Download Complete Report (15+ Sheets, 1000+ Rows)",
-            data=excel_data,
-            file_name=filename,
-            mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-        )
+        # st.markdown("---")
+        # st.header("💾 6. DOWNLOAD REPORT")
+        # excel_data, filename = create_excel_report(all_results, query)
+        # st.download_button(
+        #     label=f"📥 Download Complete Report (15+ Sheets, 1000+ Rows)",
+        #     data=excel_data,
+        #     file_name=filename,
+        #     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        # )
 
 
 # 🔥 FEATURES EXPANDER
@@ -385,3 +386,10 @@ with st.expander("📋 ALL v8.0 FEATURES - COMPLETE"):
 
 st.markdown("---")
 st.markdown("*🤖 v8.0 COMPLETE | ✅ All 6 Features | 🚀 No Errors | 📊 1000+ Data Points Ready*")
+
+
+
+
+
+
+
