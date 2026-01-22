@@ -4,7 +4,6 @@ numpy
 streamlit
 requests
 beautifulsoup4
-pandas
 plotly
 lxml
 html5lib
